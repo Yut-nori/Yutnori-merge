@@ -14,6 +14,7 @@ public class GameManager {
     // ** 멤버 변수 **
     private JPanel container;
     private final GameState gameState;
+    private ScreenManager screenManager;
 
     // ** API 객체 변수 **
     private final api.option.OptionAPI optionAPI;
@@ -27,6 +28,10 @@ public class GameManager {
         this.optionAPI = new api.option.OptionAPI();
         this.gameAPI = new api.game.GameAPI();
         this.restartAPI = new api.restart.RestartAPI();
+    }
+
+    public void setScreenManager(ScreenManager screenManager) {
+        this.screenManager = screenManager;
     }
 
 
@@ -79,6 +84,9 @@ public class GameManager {
 
             setGameStateByBackWhenMoveUnit();
 
+            if(gameState.isGameEnd())
+                screenManager.end();
+
             int changedYutCount = gameState.getYutResults().size();
             if(changedYutCount != originYutCount) {
                 gameState.setButtonClickRemaining(gameState.getButtonClickRemaining() + originYutCount - changedYutCount);
@@ -124,6 +132,7 @@ public class GameManager {
         gameState.setCurrentPlayer(gameAPI.getCurrentPlayer());
         gameState.setUnitPosition(gameAPI.getUnitPositions());
         gameState.setUnitNumberPerPosition(gameAPI.getUnitNumberPerPosition());
+        gameState.setGameEnd(gameAPI.gameEnd());
     }
 
     private void updateGameStateWhenThrowingYut() {

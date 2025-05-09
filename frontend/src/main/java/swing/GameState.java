@@ -25,9 +25,9 @@ public class GameState {
 
     private EnumSet<Phase> currentPhase;
 
+    private String event;
 
-
-    private String event = "Event";
+    private boolean gameEnd;
 
     public GameState() {
         yutResults = new ArrayList<>();
@@ -53,6 +53,7 @@ public class GameState {
         this.currentPhase = EnumSet.of(Phase.BUTTON_CLICK);
         this.buttonClickRemaining = 1;
         this.clickedYutResult = 0;
+        this.gameEnd = false;
     }
 
     public void consumeYutResult(int clicked) {
@@ -145,5 +146,13 @@ public class GameState {
 
     public void setEvent(String event) {
         this.event = event;
+    }
+
+    public boolean isGameEnd() {
+        return gameEnd;
+    }
+
+    public void setGameEnd(boolean gameEnd) {
+        this.gameEnd = gameEnd;
     }
 }

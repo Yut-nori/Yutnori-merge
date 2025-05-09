@@ -40,4 +40,8 @@ public class GameAPI {
         return "";
     }
 
+    public boolean gameEnd() {
+        return false;
+    }
+
 }
