@@ -100,10 +100,15 @@ public class PlayManager {
         throwResult.remove(throwResult.indexOf(selectedYut));
 
         this.resultEvent = turnManager.move(current, playerGroups, selectedYut, selectGroup, throwResult);
+        setCurrentPlayer();
+    }
+
+    public void setCurrentPlayer(){
+        this.currentPlayer = turnManager.getCurrentPlayer();
     }
 
     public int getCurrentPlayer(){
-        return this.currentPlayer;
+        return currentPlayer;
     }
 
     public String returnEvents(){

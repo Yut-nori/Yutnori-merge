@@ -39,9 +39,9 @@ TurnManager implements ITurnManager {
         setNextPlayer();
     }
         //다음 플레이어 설정
-    private void setNextPlayer(){
+    /*private void setNextPlayer(){
         this.currentPlayer = (this.currentPlayer+1)%this.numPlayer;
-    }
+    }*/
 
     public String move(Player current, List<GroupUnit> playerGroups, int selectedResult, int selectedGroup, List<Integer> throwResult) {
         moveManager.handleUserMove(playerGroups, selectedResult, selectedGroup);
@@ -54,7 +54,7 @@ TurnManager implements ITurnManager {
             current.setWinner(true);
             view.displayVictory(current);
         }
-        if(throwResult.isEmpty()) getNextPlayer();
+        if(throwResult.isEmpty()) setNextPlayer();
         return resultEvent;
     }
 
@@ -75,9 +75,14 @@ TurnManager implements ITurnManager {
 
     //@Override
     //현재 플레이어 정보 getter
-    public void getNextPlayer() {
+    public void setNextPlayer() {
         currentPlayer = (currentPlayer + 1) % numPlayer;
     }
+
+    public int getCurrentPlayer(){
+        return currentPlayer;
+    }
+
 
     //doPlayerTurn에서 호출하여, 모든 유닛이 빠져나왔는지 검사
     private boolean isAllUnitsEnded(Player player) {
