@@ -1,0 +1,39 @@
+# -------------------------------
+# Gradle build files and cache
+# -------------------------------
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+
+# Module build outputs
+frontend/build/
+backend/build/
+
+# Optional: If you use test folders
+frontend/out/
+backend/out/
+
+# -------------------------------
+# IntelliJ IDEA project files
+# -------------------------------
+.idea/
+*.iml
+out/
+
+# -------------------------------
+# Eclipse project files (if applicable)
+# -------------------------------
+*.classpath
+*.project
+*.settings/
+
+# -------------------------------
+# VS Code files (if applicable)
+# -------------------------------
+.vscode/
+
+# -------------------------------
+# OS-specific files
+# -------------------------------
+.DS_Store
+Thumbs.db
