@@ -78,29 +78,26 @@ public class GameManager {
         // 유닛이 클릭 가능한 상태에서만 동작 수행
         // 현재 player가 움직일 수 있는 말인지 체크
         if(gameState.getCurrentPlayer() == playerNum && gameState.getCurrentPhase().contains(Phase.UNIT_CLICK)) {
-            int originYutCount = gameState.getYutResults().size() - 1;
-
             gameAPI.moveUnit(gameState.getClickedYutResult(), unitNum);
+            gameState.setCountClickedButton(gameState.getCountClickedButton() - 1);
 
             // [1] 유닛 클릭이 불가능하게 변경
             gameState.getCurrentPhase().remove(Phase.UNIT_CLICK);
-            checkAndActivateYutRecordClick();
+
 
             if(turnChanged()) {
                 gameState.setCurrentPhase(EnumSet.of(Phase.BUTTON_CLICK));
-                gameState.setButtonClickRemaining(1);
+                gameState.setCountClickedButton(0);
             }
 
             setGameStateByBackWhenMoveUnit();
+            gameState.setClickedYutResult(0);
+            checkAndActivateYutRecordClick();
+            checkAndActivateButtonClick();
             debug();
 
             if(gameState.isGameEnd())
                 screenManager.end();
-
-            int changedYutCount = gameState.getYutResults().size();
-            if(changedYutCount != originYutCount) {
-                gameState.setButtonClickRemaining(gameState.getButtonClickRemaining() + originYutCount - changedYutCount);
-            }
 
             moveUnitRepaint();
         }
@@ -113,7 +110,7 @@ public class GameManager {
     }
 
     private void checkAndActivateButtonClick() {
-        if(gameState.getButtonClickRemaining() == 0)
+        if(gameState.getCountClickedButton() != 0 && gameState.getCountClickedButton() == gameState.getYutResults().size())
             gameState.getCurrentPhase().remove(Phase.BUTTON_CLICK);
         else
             gameState.getCurrentPhase().add(Phase.BUTTON_CLICK);
@@ -146,15 +143,13 @@ public class GameManager {
     }
 
     private void updateGameStateWhenThrowingYut() {
-        /* if(turnChanged())
-            gameState.setLastResult(-1);*/
         setGameStateByBackWhenThrowYut();
 
-        gameState.setButtonClickRemaining(gameState.getButtonClickRemaining() - 1);
+        gameState.setCountClickedButton(gameState.getCountClickedButton() + 1);
         List<Integer> yutResults = gameState.getYutResults();
 
         if(!yutResults.isEmpty()) {
-            gameState.setLastResult(yutResults.get(yutResults.size() - 1 - gameState.getButtonClickRemaining()));
+            gameState.setLastResult(yutResults.get(gameState.getCountClickedButton() - 1));
         }
 
         checkAndActivateButtonClick();

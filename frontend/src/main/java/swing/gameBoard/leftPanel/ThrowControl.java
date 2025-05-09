@@ -66,7 +66,7 @@ class ThrowControl extends JPanel {
          */
         int recordSpace = 20;
         int recordRadius = 80;
-        int showResults = gm.getGameState().getYutResults().size() - gm.getGameState().getButtonClickRemaining();
+        int showResults = gm.getGameState().getCountClickedButton();
         YutRecord[] yutRecords = new YutRecord[6];
         int[] countYutResults = new int[6];
         for(int i = 0; i < showResults; i++) {

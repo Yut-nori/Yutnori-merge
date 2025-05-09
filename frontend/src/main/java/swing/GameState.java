@@ -11,7 +11,7 @@ public class GameState {
     private List<Integer> yutResults;
     private int lastResult;
     //만약 yutResults보다 커지게 되면 button 동작 안하게
-    private int buttonClickRemaining = 0;
+    private int countClickedButton;
 
     /**
      * 어떤 YutResult를 클릭했는지 setting /
@@ -51,13 +51,9 @@ public class GameState {
             Arrays.fill(this.unitPosition[i], -1);
         this.unitNumberPerPosition = new int[playerNum][UnitNum];
         this.currentPhase = EnumSet.of(Phase.BUTTON_CLICK);
-        this.buttonClickRemaining = 1;
+        this.countClickedButton = 0;
         this.clickedYutResult = 0;
         this.gameEnd = false;
-    }
-
-    public void consumeYutResult(int clicked) {
-        if (!yutResults.isEmpty()) yutResults.remove(clicked);
     }
 
     public int getTotalPlayerNumber() {
@@ -124,12 +120,12 @@ public class GameState {
         this.currentPhase = currentPhase;
     }
 
-    public int getButtonClickRemaining() {
-        return buttonClickRemaining;
+    public int getCountClickedButton() {
+        return countClickedButton;
     }
 
-    public void setButtonClickRemaining(int buttonClickRemaining) {
-        this.buttonClickRemaining = buttonClickRemaining;
+    public void setCountClickedButton(int countClickedButton) {
+        this.countClickedButton = countClickedButton;
     }
 
     public int getClickedYutResult() {
