@@ -1,0 +1,7 @@
+back.png
+background.png
+head.png
+hexagon.png
+pentagon.png
+rectangle.png
+tail.png
