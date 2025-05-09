@@ -42,9 +42,10 @@ TurnManager implements ITurnManager {
         this.currentPlayer = (this.currentPlayer+1)%this.numPlayer;
     }
 
-    public void move(Player current, List<GroupUnit> playerGroups, List<Integer> selectedResult ){
+    public String move(Player current, List<GroupUnit> playerGroups, List<Integer> selectedResult ){
         int selectedGroup = moveManager.handleUserMove(playerGroups, selectedResult);
-        moveManager.handlePostMoveActions(current, playerGroups, selectedResult, selectedGroup);
+        String resultEvent = moveManager.handlePostMoveActions(current, playerGroups, selectedResult, selectedGroup);
+
         //playerGroups = groupManager.getGroupsByPlayer(current);
         //view.displayBoardStatus(current, groupManager.getGroupsByPlayer(current));
         //이동을 완료한 후, 모든 플레이어의 유닛의 상태를 조회하여, 게임 종료 여부 확인
@@ -52,6 +53,7 @@ TurnManager implements ITurnManager {
             current.setWinner(true);
             view.displayVictory(current);
         }
+        return resultEvent;
     }
 
     public List<Integer> throwResult(Player player, boolean isTest){

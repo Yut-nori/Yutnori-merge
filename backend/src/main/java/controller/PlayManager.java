@@ -20,9 +20,9 @@ public class PlayManager {
     private Board gameBoard;
     private List<Integer> throwResult;
     private boolean isTest;
+    private String resultEvent;
 
     /* TurnManger와 MoveManager 인터페이스화*/
-    protected  BoardManager boardManager;
     protected  GroupManager groupManager;
     protected  TurnManager turnManager;
     protected  MoveManager moveManager;
@@ -38,14 +38,15 @@ public class PlayManager {
         this.numPlayer = numPlayer;
         this.playerUnitNum = playerUnitNum;
         this.isTest = isTest;
+        this.playerList = new ArrayList<>();
 
-        boardManager = new BoardManager();
         groupManager = new GroupManager();
         iView = new GameView();
         moveManager = new MoveManager(groupManager, iView);
         turnManager = new TurnManager(numPlayer, groupManager, moveManager, iView);
 
-        this.gameBoard = new Board(boardEdgeNum);
+        BoardManager.createBoard(boardEdgeNum);
+        this.gameBoard = BoardManager.getBoard();
 
         createPlayer(playerNameList, playerUnitNum);
         createGroupManager(this.playerList);
@@ -81,9 +82,12 @@ public class PlayManager {
         return false;
     }
 
-    public List<Integer> getYutResult(boolean isTest, int[][] testResult) {
+    public void playerThrowYut(boolean isTest, int[][] testResult) {
         Player current = this.playerList.get(currentPlayer);
         this.throwResult.addAll(turnManager.throwResult(current, isTest));
+    }
+
+    public List<Integer> getYutResult() {
         return this.throwResult;
     }
 
@@ -98,12 +102,17 @@ public class PlayManager {
                 break;
             }
         }*/
-        turnManager.move(current, playerGroups, throwResult);
+        this.resultEvent = turnManager.move(current, playerGroups, throwResult);
     }
 
     public int getCurrentPlayer(){
         return this.currentPlayer;
     }
+
+    public String returnEvents(){
+        return this.resultEvent;
+    }
+
 
     public List<Player> getPlayerList() {
         return playerList;
