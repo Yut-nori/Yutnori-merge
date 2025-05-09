@@ -1,5 +1,6 @@
 package swing;
 
+import swing.gameBoard.centerPanel.MainBoard;
 import swing.gameBoard.topPanel.TopPanel;
 import swing.gameBoard.leftPanel.LeftPanel;
 import swing.gameBoard.rightPanel.RightPanel;
@@ -177,10 +178,13 @@ public class GameManager {
 
     private void topRepaint() { switchPanel(new TopPanel(this)); }
 
+    private void centerRepaint() { switchPanel(new MainBoard(this)); }
+
     public void moveUnitRepaint() {
         leftRepaint();
         rightRepaint();
         topRepaint();
+        centerRepaint();
     }
 
     public void switchPanel(JPanel panel) {
