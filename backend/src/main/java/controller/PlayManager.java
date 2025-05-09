@@ -1,0 +1,106 @@
+package controller;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import model.Player;
+import model.Unit;
+import model.board.Board;
+import controller.interfaces.*;
+import view.interfaces.IView;
+
+public class PlayManager {
+    private List<Player> playerList;
+    private int numPlayer;
+    private int currentPlayer;
+    private int playerUnitNum;
+    private Board gameBoard;
+
+    /* TurnManger와 MoveManager 인터페이스화*/
+    protected  BoardManager boardManager;
+    protected  GroupManager groupManager;
+    protected  ITurnManager turnManager;
+    protected  IMoveManager moveManager;
+    protected  IView iView;
+
+    public PlayManager(
+            int numPlayer,
+            int boardEdgeNum,
+            String[] playerNameList,
+            int playerUnitNum,
+            IView view,
+            BoardManager boardManager,
+            GroupManager groupManager,
+            IMoveManager moveManager,
+            ITurnManager turnManager
+    ) {
+        this.numPlayer = numPlayer;
+        this.currentPlayer = 0;
+        this.playerList = new ArrayList<>();
+        this.playerUnitNum = playerUnitNum;
+        this.groupManager = groupManager;
+        this.iView = view;
+        this.boardManager = boardManager;
+        this.moveManager = moveManager;
+        this.turnManager = turnManager;
+        BoardManager.createBoard(boardEdgeNum);
+        gameBoard = BoardManager.getBoard();
+        createPlayer(playerNameList, playerUnitNum);
+        createGroupManager(this.playerList);
+    }
+
+    //유저 생성
+    public final void createPlayer(String[] playerNameList, int playerUnitNum) {
+        for (String name : playerNameList) {
+            Player player = new Player(name, playerUnitNum, false);
+            for (int i = 0; i < playerUnitNum; i++) {
+                player.addUnit(new Unit());
+            }
+            this.playerList.add(player);
+        }
+    }
+
+    //그룹 매니저 생성 -> (구)UnitManager
+    public final void createGroupManager(List<Player> playerList) {
+        for (Player player : playerList) {
+            List<Unit> units = player.getUnits();
+            for (Unit unit : units) {
+                this.groupManager.createGroup(player, unit);
+            }
+        }
+    }
+
+    //게임 종료 확인, GamePlay가 끝날 때마다 모든 player을 조회하여 끝난 플레이어가 있으면 return 하여 종료
+    public boolean checkEnd() {
+        // 게임의 끝 확인
+        for (Player player : playerList) {
+            if (player.isWinner()) return true;
+        }
+        return false;
+    }
+
+    public void GamePlay(boolean isTest, int[][] testResult) {
+        Player current = this.playerList.get(currentPlayer);
+        turnManager.doPlayerTurn(current, isTest, testResult);
+        if(checkEnd()){
+            return;
+        }
+        this.currentPlayer = turnManager.getNextPlayer();
+    }
+
+    public List<Player> getPlayerList() {
+        return playerList;
+    }
+
+    public int getCurrentPlayerIndex() {
+        return currentPlayer;
+    }
+
+    public GroupManager getGroupManager() {
+        return groupManager;
+    }
+
+    public IMoveManager getMoveManager() {
+        return moveManager;
+    }
+}
