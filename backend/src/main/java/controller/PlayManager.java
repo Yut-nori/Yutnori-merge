@@ -82,7 +82,7 @@ public class PlayManager {
         return false;
     }
 
-    public void playerThrowYut(boolean isTest, int[][] testResult) {
+    public void playerThrowYut(boolean isTest) {
         Player current = this.playerList.get(currentPlayer);
         this.throwResult.addAll(turnManager.throwResult(current, isTest));
     }
