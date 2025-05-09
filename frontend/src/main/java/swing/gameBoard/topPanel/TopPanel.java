@@ -1,6 +1,7 @@
 package swing.gameBoard.topPanel;
 
 import swing.GameManager;
+import swing.util.UIConstants;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,11 +15,11 @@ public class TopPanel extends JPanel {
         setLayout(null);
 
         // [2] 패널의 위치와 크기 설정
-        setBounds(310, 0, 660, 60);
+        setBounds(UIConstants.LEFT_PANEL_WDITH, 0, UIConstants.CENTER_PANEL_WIDTH, UIConstants.TOP_PANEL_HEIGHT );
 
         // [3] 텍스트 라벨 설정
         JLabel turnLabel = new JLabel("Player " + gm.getGameState().getCurrentPlayer() + 1 + "'s turn : " + gm.getGameState().getEvent());
-        turnLabel.setFont(new Font("Arial", Font.BOLD, 30));
+        turnLabel.setFont(new Font(UIConstants.DEFAULT_FONT, Font.BOLD, 30));
         turnLabel.setForeground(Color.WHITE);
 
         // Locate label to center

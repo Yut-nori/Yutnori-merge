@@ -2,8 +2,8 @@ package swing.gameBoard;
 
 import swing.ScreenManager;
 import swing.gameBoard.centerPanel.MainBoard;
-import swing.gameBoard.rightPanel.RightPanel;
 import swing.gameBoard.leftPanel.LeftPanel;
+import swing.gameBoard.rightPanel.RightPanel;
 import swing.gameBoard.topPanel.TopPanel;
 
 import javax.swing.*;
