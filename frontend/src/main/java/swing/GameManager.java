@@ -9,14 +9,17 @@ import java.awt.*;
 import java.util.List;
 
 public class GameManager {
+
+    // ** 멤버 변수 **
     private JPanel container;
     private final GameState gameState;
 
-    // API 객체 생성
+    // ** API 객체 변수 **
     private final api.option.OptionAPI optionAPI;
     private final api.game.GameAPI gameAPI;
     private final api.restart.RestartAPI restartAPI;
 
+    // ** Constructor **
     public GameManager(GameState gameState) {
         this.gameState = gameState;
 
@@ -33,7 +36,7 @@ public class GameManager {
         if (designatedYutResult == 0) gameAPI.throwYut(); // 랜덤 윷 던지기 호출
         else gameAPI.throwYut(designatedYutResult); // 지정 윷 던지기 메서드 호출
     }
-    public void apiRestart() {
+    public void apiRestartGame() {
         restartAPI.restartGame();
     }
     public void apiMoveUnit(int selectedYut, int selectedUnit) {
@@ -41,13 +44,15 @@ public class GameManager {
     }
 
 
-    // 지정 윷 던지기 메서드(오버로딩)
+    // 윷 던지기 메서드(랜덤 윷 인자: 0 / 지정 윷 인자: -1, 1, 2, 4, 5)
     public void throwYut(int designatedYutResult) {
         // [1] api 호출
         apiThrowYut(designatedYutResult);
 
-        //gameState 업데이트하고
+        // gameState 업데이트
         updateGameStateWhenThrowingYut();
+
+        // LeftPanel을 새롭게 그림
         leftRepaint();
     }
 
@@ -66,8 +71,6 @@ public class GameManager {
             }
         }
     }
-
-
 
     //Turn이 바뀌었는지 확인하고 이를 통해서 turn까지 바꿔줌
     public boolean turnChanged() {
