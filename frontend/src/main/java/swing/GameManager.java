@@ -41,8 +41,6 @@ public class GameManager {
     }
 
 
-
-
     // 지정 윷 던지기 메서드(오버로딩)
     public void throwYut(int designatedYutResult) {
         // [1] api 호출
@@ -98,7 +96,11 @@ public class GameManager {
     private void updateGameStateWhenThrowingYut() {
         gameState.setButtonClickRemaining(gameState.getButtonClickRemaining() - 1);
         List<Integer> yutResults = gameState.getYutResults();
-        gameState.setLastResult(yutResults.get(yutResults.size() - 1 - gameState.getButtonClickRemaining()));
+
+        if(!yutResults.isEmpty()) {
+            gameState.setLastResult(yutResults.get(yutResults.size() - 1 - gameState.getButtonClickRemaining()));
+        }
+
         checkAndActivateButtonClick();
         checkAndActivateYutRecordClick();
         if(turnChanged())

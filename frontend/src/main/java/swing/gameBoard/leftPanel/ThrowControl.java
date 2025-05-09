@@ -51,10 +51,8 @@ class ThrowControl extends JPanel {
         else {
             JButton randomYutThrowBtn = createYutButton("랜덤 윷", 20, 240, 270);
             randomYutThrowBtn.addActionListener(new GlobalButtonListener(gm, "randomThrow"));
-            add(randomYutThrowBtn);
 
-            // 윷 던지기 메서드 호출(인자: 랜덤 윷 상태)
-            gm.throwYut(0);
+            add(randomYutThrowBtn);
         }
 
         // [2] 윷 결과 패널 생성
