@@ -13,24 +13,28 @@ import java.util.List;
 import static swing.util.ComboBox.createStyledComboBox;
 
 class ThrowControl extends JPanel {
+
+    // ** 생성자 **
     public ThrowControl(GameManager gm) {
+
+        // [1] 패널 기본 설정
         setLayout(null);
         setOpaque(false);
 
-        // [1] case에 따라 윷 던지기 버튼을 만들어야 함
+        // [2] case에 따라 윷 던지기 버튼을 만들어야 함
         // case1: 지정 윷 던지기
         if(gm.getGameState().isTest()) {
 
-            // [1.1] 지정할 윷을 선택하는 콤보박스 생성
+            // [2.1] 지정할 윷을 선택하는 콤보박스 생성
             JComboBox<String> yutComboBox = createStyledComboBox(
                     new String[]{"빽도", "도", "개", "걸", "윷", "모"}, 20, 240, 120, 70
             );
 
-            // [1.2] 윷 던지기 버튼 생성 및 이벤트 리스너 추가
+            // [2.2] 윷 던지기 버튼 생성 및 이벤트 리스너 추가
             JButton designatedYutThrowBtn = createYutButton("지정 윷", 150, 240, 150);
             designatedYutThrowBtn.addActionListener(e -> {
 
-                // [1.2.1] 콤보박스에서 선택한 윷 결과를 가져옴
+                // [2.2.1] 콤보박스에서 선택한 윷 결과를 가져옴
                 int yutResult = yutComboBox.getSelectedIndex();
                 if(yutResult == 0) yutResult = -1; // 빽도는 -1로 설정
 
@@ -43,7 +47,7 @@ class ThrowControl extends JPanel {
                 }
             });
 
-            // [1.3] 패널에 추가
+            // [2.3] 패널에 추가
             add(yutComboBox);
             add(designatedYutThrowBtn);
         }
@@ -55,7 +59,7 @@ class ThrowControl extends JPanel {
             add(randomYutThrowBtn);
         }
 
-        // [2] 윷 결과 패널 생성
+        // [3] 윷 결과 패널 생성
         /**
          * 이제 이 Record를 버튼을 누를 때마다 클릭했을 때 보이는게 달라지도록 만들어져야함!
          * gm을 통해서 만들 수 있을듯!
