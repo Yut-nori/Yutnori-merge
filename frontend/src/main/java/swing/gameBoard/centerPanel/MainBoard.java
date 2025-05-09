@@ -1,7 +1,7 @@
-package swing.gameBoard;
+package swing.gameBoard.centerPanel;
 
 import swing.GameManager;
-import swing.gameBoard.RightPanel.UnitIcon;
+import swing.gameBoard.rightPanel.UnitIcon;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,11 +10,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static swing.gameBoard.UnitPosition.*;
+import static swing.gameBoard.centerPanel.UnitPosition.*;
 import static swing.util.File.getFileName;
 import static swing.util.File.imageLoading;
 
-class MainBoard extends JPanel {
+public class MainBoard extends JPanel {
     private final String screenName = "GameBoard";
     private Map<String, BufferedImage> images = new HashMap<>();
     private final int shape;
