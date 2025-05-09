@@ -2,13 +2,12 @@ package swing.gameBoard;
 
 import swing.ScreenManager;
 import swing.gameBoard.centerPanel.MainBoard;
-import swing.gameBoard.RightPanel.RightPanel;
+import swing.gameBoard.rightPanel.RightPanel;
 import swing.gameBoard.leftPanel.LeftPanel;
 import swing.gameBoard.topPanel.TopPanel;
 
 import javax.swing.*;
 import java.awt.image.BufferedImage;
-import java.util.HashMap;
 import java.util.List;
 import java.awt.*;
 import java.util.Map;
@@ -28,25 +27,27 @@ public class GameBoard extends JPanel {
         // [1] 레이아웃을 null 로 설정
         setLayout(null);
 
-        //
+        // [2] 게임 내에서 모든 패널들을 붙이는 전체 container 역할 패널 세팅 (gameBoard 화면에서)
         sm.getGm().setPanelContainer(this);
-        // 배경 이미지 로딩
+
+        // [3] 배경 이미지 로딩
         List<String> imageNames = getFileName(screenName);
         images = imageLoading(imageNames, screenName);
 
-        // 패널 생성
+        // [4] 패널 생성
         MainBoard mainBoard = new MainBoard(sm.getGm());
         LeftPanel leftPanel = new LeftPanel(sm.getGm());
         RightPanel rightPanel = new RightPanel(sm.getGm());
         TopPanel topPanel = new TopPanel(sm.getGm());
 
-        // 패널 추가
+        // [5] 패널 추가
         add(mainBoard);
         add(leftPanel);
         add(rightPanel);
         add(topPanel);
     }
 
+    // 패널이 그려질 때 호출되는 메서드
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -55,13 +56,6 @@ public class GameBoard extends JPanel {
         if (images.get("background.png") != null) {
             g.drawImage(images.get("background.png"), 0, 0, getWidth(), getHeight(), this);
         }
-    }
-
-    @Override
-    public void repaint() {
-        // 백엔드한테 데이터를 받아서
-        // Controller controller = new Controller();
-        // controller.getData();
     }
 
 }

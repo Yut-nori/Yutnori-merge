@@ -1,7 +1,7 @@
 package swing.gameBoard.centerPanel;
 
 import swing.GameManager;
-import swing.gameBoard.RightPanel.UnitIcon;
+import swing.gameBoard.rightPanel.UnitIcon;
 
 import javax.swing.*;
 import java.awt.*;

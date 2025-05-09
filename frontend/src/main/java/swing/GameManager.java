@@ -1,6 +1,6 @@
 package swing;
 
-import swing.gameBoard.RightPanel.RightPanel;
+import swing.gameBoard.rightPanel.RightPanel;
 import swing.gameBoard.topPanel.TopPanel;
 import swing.gameBoard.leftPanel.LeftPanel;
 

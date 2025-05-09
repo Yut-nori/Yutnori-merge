@@ -1,4 +1,4 @@
-package swing.gameBoard.RightPanel;
+package swing.gameBoard.rightPanel;
 
 import swing.GameManager;
 import swing.util.GlobalButtonListener;
