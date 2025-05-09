@@ -54,6 +54,7 @@ TurnManager implements ITurnManager {
             current.setWinner(true);
             view.displayVictory(current);
         }
+        if(throwResult.isEmpty()) getNextPlayer();
         return resultEvent;
     }
 
@@ -74,8 +75,8 @@ TurnManager implements ITurnManager {
 
     //@Override
     //현재 플레이어 정보 getter
-    public int getNextPlayer() {
-        return this.currentPlayer;
+    public void getNextPlayer() {
+        currentPlayer = (currentPlayer + 1) % numPlayer;
     }
 
     //doPlayerTurn에서 호출하여, 모든 유닛이 빠져나왔는지 검사
