@@ -45,10 +45,10 @@ class PlayerUnitPanel extends JPanel {
          */
         // [5] 현재 상태의 말들의 위치에 따라 해당 위치 정보에 따라 그리기
         int[][] unitPositions = gm.getGameState().getUnitPosition();
-        for (int i = 0; i < unitPositions.length; i++) {
+        int[][] unitNumPerPositions = gm.getGameState().getUnitNumberPerPosition();
+        for (int i = 0; i < unitPositions[0].length; i++) {
             // [5.1] 위치 정보 index 가져오기
-            int position = gm.getGameState().getUnitPosition()[playerIndex][i];
-
+            int position = unitPositions[playerIndex][i];
             // [5.2] Ready 상태의 말들을 추가
             if(position == -1)  circlePanel.add(new UnitIcon(gm, unitColor, playerIndex, i, 1));
         }
