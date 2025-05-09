@@ -11,7 +11,7 @@ import java.util.List;
 public class GameManager {
 
     // ** 멤버 변수 **
-    private JPanel container;
+    private JPanel panelContainer;
     private final GameState gameState;
     private ScreenManager screenManager;
 
@@ -174,23 +174,23 @@ public class GameManager {
     }
 
     public void switchPanel(JPanel panel) {
-        Component[] components = container.getComponents();
+        Component[] components = panelContainer.getComponents();
         for (Component comp : components) {
             if (comp.getClass().equals(panel.getClass())) {
-                container.remove(comp);
+                panelContainer.remove(comp);
                 break;
             }
         }
-        container.add(panel);
-        container.revalidate();
-        container.repaint();
+        panelContainer.add(panel);
+        panelContainer.revalidate();
+        panelContainer.repaint();
     }
 
 
 
     // ** Getters and Setters **
-    public void setContainer(JPanel container) {
-        this.container = container;
+    public void setPanelContainer(JPanel panelContainer) {
+        this.panelContainer = panelContainer;
     }
 
     public GameState getGameState() {

@@ -17,14 +17,19 @@ import static swing.util.File.getFileName;
 import static swing.util.File.imageLoading;
 
 public class GameBoard extends JPanel {
+
+    // ** 멤버 변수 **
     private final String screenName = "GameBoard";
+    private final Map<String, BufferedImage> images;
 
-    private Map<String, BufferedImage> images = new HashMap<>();
-
+    // ** Constructor **
     public GameBoard(ScreenManager sm) {
+
+        // [1] 레이아웃을 null 로 설정
         setLayout(null);
 
-        sm.getGm().setContainer(this);
+        //
+        sm.getGm().setPanelContainer(this);
         // 배경 이미지 로딩
         List<String> imageNames = getFileName(screenName);
         images = imageLoading(imageNames, screenName);
