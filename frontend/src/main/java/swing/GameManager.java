@@ -68,9 +68,19 @@ public class GameManager {
             // 작동 -> back에서 yutResult 등을 업데이트해야함.
             // apiMoveUnit(selectedYut, selectedUnit);
 
+            int originYutCount = gameState.getYutResults().size() - 1;
+
             // [1] 유닛 클릭 가능 횟수를 1번 소모
             gameState.getCurrentPhase().remove(Phase.UNIT_CLICK);
             checkAndActivateYutRecordClick();
+
+            //back을 통해서 yutReult update
+            int changedYutCount = gameState.getYutResults().size();
+            if(changedYutCount != originYutCount) {
+                gameState.setButtonClickRemaining(gameState.getButtonClickRemaining() + originYutCount - changedYutCount);
+            }
+
+
             moveUnitRepaint();
 
             if(turnChanged()) {

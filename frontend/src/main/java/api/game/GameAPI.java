@@ -1,5 +1,8 @@
 package api.game;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class GameAPI {
 
     // 랜덤 윷 던지기 (메서드 오버로딩)
@@ -16,4 +19,25 @@ public class GameAPI {
         // 유닛 이동 로직
         System.out.println("유닛 이동 api 호출됨: " + selectedYut + ", " + selectedUnit);
     }
+
+    public List<Integer> getYutResult() {
+        return new ArrayList<>();
+    }
+
+    public int getCurrentPlayer() {
+        return 0;
+    }
+
+    public int[][] getUnitPositions() {
+        return new int[1][1];
+    }
+
+    public int[][] getUnitNumberPerPosition() {
+        return new int[1][1];
+    }
+
+    public String getEvent() {
+        return "";
+    }
+
 }
