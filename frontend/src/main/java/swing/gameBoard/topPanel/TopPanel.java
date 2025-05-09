@@ -8,11 +8,12 @@ import java.awt.*;
 
 public class TopPanel extends JPanel {
 
-    // ** Constructor **
+    // ** 생성자 **
     public TopPanel(GameManager gm) {
 
-        // [1] 레이아웃을 null 로 설정
+        // [1] 패널 기본 설정
         setLayout(null);
+        setOpaque(false);
 
         // [2] 패널의 위치와 크기 설정
         setBounds(UIConstants.TOP_PANEL_START_X, UIConstants.TOP_PANEL_START_Y, UIConstants.TOP_PANEL_WIDTH, UIConstants.TOP_PANEL_HEIGHT );

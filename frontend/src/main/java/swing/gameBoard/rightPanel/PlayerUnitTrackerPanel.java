@@ -11,13 +11,11 @@ class PlayerUnitTrackerPanel extends JPanel {
     // ** Constructor **
     public PlayerUnitTrackerPanel(GameManager gm) {
 
-        // [1] 투명도 설정
-        setOpaque(false);
-        
-        // [2] 레이아웃을 null 로 설정
+        // [1] 패널 기본 설정
         setLayout(null);
+        setOpaque(false);
 
-        // [3] 타이틀 라벨 생성
+        // [2] 타이틀 라벨 생성
         JLabel titleLabel = new JLabel("Player Unit Tracker");
         titleLabel.setFont(new Font(UIConstants.DEFAULT_FONT, Font.BOLD, 30));
         titleLabel.setForeground(Color.WHITE);
@@ -25,11 +23,11 @@ class PlayerUnitTrackerPanel extends JPanel {
         titleLabel.setVerticalAlignment(SwingConstants.CENTER);
         titleLabel.setBounds(0, 0, UIConstants.RIGHT_PANEL_WIDTH, 140);
 
-        // [4] PlayerUnitPanel을 감싸는 패널 생성
+        // [3] PlayerUnitPanel을 감싸는 패널 생성
         TrackerPanel trackerPanel = new TrackerPanel(gm, gm.getGameState().getTotalPlayerNumber(), gm.getGameState().getUnitNumberPerPlayer());
         trackerPanel.setBounds(0, 140, UIConstants.RIGHT_PANEL_WIDTH, 440);
 
-        // [5] 패널에 추가
+        // [4] 패널에 추가
         add(titleLabel);
         add(trackerPanel);
     }

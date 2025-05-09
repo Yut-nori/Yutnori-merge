@@ -64,7 +64,7 @@ public class UnitIcon extends JComponent {
         g2.drawOval(offset, offset, diameter, diameter);
 
         // [4] 2 이상일 때, 그룹 숫자 라벨을 원 위에 추가
-        if (groupedUnitNum >= 2) {
+        if (groupedUnitNum > 1) {
             g2.setColor(Color.WHITE);
             g2.setFont(new Font(UIConstants.DEFAULT_FONT, Font.BOLD, 14));
             String text = "x" + String.valueOf(groupedUnitNum);

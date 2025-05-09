@@ -6,7 +6,12 @@ public class UIConstants {
     public static int FRAME_WIDTH = 1280;
     public static int FRAME_HEIGHT = 720;
 
+    // Left Panel
     public static int LEFT_PANEL_WDITH = 310;
+    public static int YUT_RESULT_PANEL_HEIGHT = 470;
+    public static int THROW_CONTROL_START_Y = 380;
+    public static int THROW_CONTROL_HEIGHT = 340;
+
     public static int CENTER_PANEL_WIDTH = 660;
 
     public static int TOP_PANEL_WIDTH = 660;
@@ -30,7 +35,9 @@ public class UIConstants {
 
     // Font Info
     public static String DEFAULT_FONT = "Arial";
-    public static String PLAYER_UNIT_TRACKER_FONT = "맑은고딕";
+    public static String PLAYER_UNIT_TRACKER_FONT = "맑은 고딕";
     public static String BUTTON_FONT = "굴림";
+    public static String YUT_RECORD_FONT = "맑은 고딕";
+    public static String YUT_RESULT_LABEL = "맑은 고딕";
 
 }

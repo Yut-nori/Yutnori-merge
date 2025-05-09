@@ -8,12 +8,14 @@ import java.util.List;
 
 class YutGroup extends JPanel {
 
+    // ** 생성자 **
     public YutGroup(int result) {
 
+        // [1] 패널 기본 설정
         setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
         setOpaque(false);
 
-        // 윷 이미지 로드
+        // [2] 윷 이미지 로드
         ImageIcon headImg = new ImageIcon(getClass().getResource("/GameBoard/head.png"));
         ImageIcon tailImg = new ImageIcon(getClass().getResource("/GameBoard/tail.png"));
         ImageIcon backImg = new ImageIcon(getClass().getResource("/GameBoard/back.png"));
@@ -26,9 +28,8 @@ class YutGroup extends JPanel {
         ImageIcon tailImgIcon = new ImageIcon(scaledTailImg);
         ImageIcon backImgIcon = new ImageIcon(scaledBackImg);
 
-
+        // [3] 결과에 따라 윷 그리기
         int[] Result = generateRandomSequence(result); // 0: head, 1: tail, 2: back
-
         for (int j : Result) {
             JLabel label = new JLabel();
 
@@ -51,6 +52,7 @@ class YutGroup extends JPanel {
         }
     }
 
+    // 윷의 결과에 따라 랜덤하게 배열을 섞는 메서드
     private int[] generateRandomSequence(int result) {
         int[] resultArray = switch (result) {
             case -1 -> // 빽도
@@ -68,8 +70,6 @@ class YutGroup extends JPanel {
             default -> throw new IllegalArgumentException("결과값은 -1, 1~5 사이여야 합니다.");
         };
 
-        // 기본 설정
-
         // 배열을 List로 변환 후 섞기
         List<Integer> tempList = new ArrayList<>();
         for (int val : resultArray) {
@@ -84,4 +84,5 @@ class YutGroup extends JPanel {
 
         return resultArray;
     }
+
 }

@@ -16,24 +16,22 @@ class PlayerUnitPanel extends JPanel {
     // ** Constructor **
     public PlayerUnitPanel(GameManager gm, String playerName, Color unitColor, int unitNumber) {
 
-        // [1] 투명도 설정
+        // [1] 패널 기본 설정
+        setLayout(new BorderLayout());
         setOpaque(false);
 
-        // [2] 레이아웃을 BorderLayout으로 설정
-        setLayout(new BorderLayout());
-
-        // [3] 플레이어 정보 텍스트 라벨 생성
+        // [2] 플레이어 정보 텍스트 라벨 생성
         JLabel nameLabel = new JLabel(playerName);
         nameLabel.setForeground(Color.WHITE);
         nameLabel.setFont(new Font(UIConstants.PLAYER_UNIT_TRACKER_FONT, Font.BOLD, 16));
         nameLabel.setPreferredSize(new Dimension(70, 40));
         nameLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
-        // [4] Ready 중인 플레이어의 말을 그리는 패널
+        // [3] Ready 중인 플레이어의 말을 그리는 패널
         JPanel circlePanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 5));
         circlePanel.setOpaque(false);
 
-        // [5] 텍스트에 따라 플레이어 인덱스 설정
+        // [4] 텍스트에 따라 플레이어 인덱스 설정
         int playerIndex = switch (playerName) {
             case "Player 1" -> 0;
             case "Player 2" -> 1;
@@ -45,17 +43,17 @@ class PlayerUnitPanel extends JPanel {
         /**
          * player의 back에서 아직 출발하지 않은 Ready 상태의 개수에 있는 것만 출력
          */
-        // [6] 현재 상태의 말들의 위치에 따라 해당 위치 정보에 따라 그리기
+        // [5] 현재 상태의 말들의 위치에 따라 해당 위치 정보에 따라 그리기
         int[][] unitPositions = gm.getGameState().getUnitPosition();
         for (int i = 0; i < unitPositions.length; i++) {
-            // [6.1] 위치 정보 index 가져오기
+            // [5.1] 위치 정보 index 가져오기
             int position = gm.getGameState().getUnitPosition()[playerIndex][i];
 
-            // [6.2] Ready 상태의 말들을 추가
+            // [5.2] Ready 상태의 말들을 추가
             if(position == -1)  circlePanel.add(new UnitIcon(gm, unitColor, playerIndex, i, 1));
         }
 
-        // [7] 패널에 주가
+        // [6] 패널에 주가
         add(nameLabel, BorderLayout.NORTH);
         add(circlePanel, BorderLayout.CENTER);
     }
