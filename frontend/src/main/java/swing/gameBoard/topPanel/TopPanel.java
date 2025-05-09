@@ -20,7 +20,7 @@ public class TopPanel extends JPanel {
 
         // [3] 텍스트 라벨 설정
         int currentPlayerNum = gm.getGameState().getCurrentPlayer() + 1;
-        JLabel turnLabel = new JLabel("Player " + currentPlayerNum + "'s turn : " + gm.getGameState().getEvent());
+        JLabel turnLabel = new JLabel("Player " + currentPlayerNum + "'s turn / Last: " + gm.getGameState().getEvent());
         turnLabel.setFont(new Font(UIConstants.DEFAULT_FONT, Font.BOLD, 30));
         turnLabel.setForeground(Color.WHITE);
 
