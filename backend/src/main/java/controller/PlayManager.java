@@ -3,11 +3,14 @@ package controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.GroupUnit;
 import model.Player;
 import model.Unit;
 import model.board.Board;
 import controller.interfaces.*;
+import view.GameView;
 import view.interfaces.IView;
+
 
 public class PlayManager {
     private List<Player> playerList;
@@ -15,12 +18,14 @@ public class PlayManager {
     private int currentPlayer;
     private int playerUnitNum;
     private Board gameBoard;
+    private List<Integer> throwResult;
+    private boolean isTest;
 
     /* TurnManger와 MoveManager 인터페이스화*/
     protected  BoardManager boardManager;
     protected  GroupManager groupManager;
-    protected  ITurnManager turnManager;
-    protected  IMoveManager moveManager;
+    protected  TurnManager turnManager;
+    protected  MoveManager moveManager;
     protected  IView iView;
 
     public PlayManager(
@@ -28,23 +33,20 @@ public class PlayManager {
             int boardEdgeNum,
             String[] playerNameList,
             int playerUnitNum,
-            IView view,
-            BoardManager boardManager,
-            GroupManager groupManager,
-            IMoveManager moveManager,
-            ITurnManager turnManager
+            boolean isTest
     ) {
         this.numPlayer = numPlayer;
-        this.currentPlayer = 0;
-        this.playerList = new ArrayList<>();
         this.playerUnitNum = playerUnitNum;
-        this.groupManager = groupManager;
-        this.iView = view;
-        this.boardManager = boardManager;
-        this.moveManager = moveManager;
-        this.turnManager = turnManager;
-        BoardManager.createBoard(boardEdgeNum);
-        gameBoard = BoardManager.getBoard();
+        this.isTest = isTest;
+
+        boardManager = new BoardManager();
+        groupManager = new GroupManager();
+        iView = new GameView();
+        moveManager = new MoveManager(groupManager, iView);
+        turnManager = new TurnManager(numPlayer, groupManager, moveManager, iView);
+
+        this.gameBoard = new Board(boardEdgeNum);
+
         createPlayer(playerNameList, playerUnitNum);
         createGroupManager(this.playerList);
     }
@@ -79,13 +81,28 @@ public class PlayManager {
         return false;
     }
 
-    public void GamePlay(boolean isTest, int[][] testResult) {
+    public List<Integer> getYutResult(boolean isTest, int[][] testResult) {
         Player current = this.playerList.get(currentPlayer);
-        turnManager.doPlayerTurn(current, isTest, testResult);
-        if(checkEnd()){
-            return;
-        }
-        this.currentPlayer = turnManager.getNextPlayer();
+        this.throwResult.addAll(turnManager.throwResult(current, isTest));
+        return this.throwResult;
+    }
+
+    public void setUnitMove(int selectUnit, int selectedYut) {
+        Player current = this.playerList.get(currentPlayer);
+        List<GroupUnit> playerGroups = groupManager.getGroupsByPlayer(current);
+        int selected = 0;
+        /*for(int i=0;i<throwResult.size();i++) {
+            if(throwResult.get(i) == selectedYut) {
+                selected = throwResult.get(i);
+                throwResult.remove(i);
+                break;
+            }
+        }*/
+        turnManager.move(current, playerGroups, throwResult);
+    }
+
+    public int getCurrentPlayer(){
+        return this.currentPlayer;
     }
 
     public List<Player> getPlayerList() {
