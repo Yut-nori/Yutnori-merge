@@ -6,7 +6,7 @@ import swing.GameManager;
 import javax.swing.*;
 import java.awt.*;
 
-class TopPanel extends JPanel {
+public class TopPanel extends JPanel {
     /**
      * 이후 추가 이벤트에 따른 값들을 넣고 싶다면
      * switch문을 만들던가 혹은 다른 방향으로 변환 필요
