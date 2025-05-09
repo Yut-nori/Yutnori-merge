@@ -52,7 +52,8 @@ public class GameManager {
     // 윷 던지기 메서드(랜덤 윷 인자: 0 / 지정 윷 인자: -1, 1, 2, 4, 5)
     public void throwYut(int designatedYutResult) {
         // [1] api 호출
-        apiThrowYut(designatedYutResult);
+        if (gameState.getYutResults().isEmpty())
+            apiThrowYut(designatedYutResult);
 
         // [2] GameState 업데이트
         updateGameStateWhenThrowingYut();
