@@ -30,7 +30,7 @@ class YutResult extends JPanel {
         resultLabel.setForeground(Color.WHITE);
         resultLabel.setHorizontalAlignment(SwingConstants.CENTER);
         resultLabel.setVerticalAlignment(SwingConstants.CENTER);
-        resultLabel.setBounds(70, 85, 170, 85);
+        resultLabel.setBounds(70, 85, 200, 85);
         resultLabel.setOpaque(false);
 
         // [3] 윷 결과 그룹 패널 생성
