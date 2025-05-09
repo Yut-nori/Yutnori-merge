@@ -1,0 +1,12 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+dependencies {
+    implementation project(':backend') // backend 모듈이 있다면
+}
+
+application {
+    mainClass = 'Main'  // 예: 'swing.Main' 등 실제 FQCN으로 바꿔주세요
+}
