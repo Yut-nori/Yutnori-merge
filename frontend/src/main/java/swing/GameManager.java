@@ -28,6 +28,7 @@ public class GameManager {
         this.restartAPI = new api.restart.RestartAPI();
     }
 
+
     // ** API 호출 메서드 **
     public void apiSetOption(int playerNum, int unitNum, int shape, boolean isTest) {
         optionAPI.setOption(playerNum, unitNum, shape, isTest);
@@ -35,6 +36,8 @@ public class GameManager {
     public void apiThrowYut(int designatedYutResult) {
         if (designatedYutResult == 0) gameAPI.throwYut(); // 랜덤 윷 던지기 호출
         else gameAPI.throwYut(designatedYutResult); // 지정 윷 던지기 메서드 호출
+
+
     }
     public void apiRestartGame() {
         restartAPI.restartGame();
@@ -44,23 +47,28 @@ public class GameManager {
     }
 
 
+    // ** 메서드 모음 **//
     // 윷 던지기 메서드(랜덤 윷 인자: 0 / 지정 윷 인자: -1, 1, 2, 4, 5)
     public void throwYut(int designatedYutResult) {
         // [1] api 호출
         apiThrowYut(designatedYutResult);
 
-        // gameState 업데이트
+        // [2] gameState 업데이트
         updateGameStateWhenThrowingYut();
 
-        // LeftPanel을 새롭게 그림
+        // [3] LeftPanel을 새롭게 그림
         leftRepaint();
     }
 
+    // 말을 클릭했을 경우 처리 메서드
     public void clickUnit(int playerNum, int unitNum) {
+        
+        // 유닛이 클릭 가능한 상태에서만 동작 수행
         if(gameState.getCurrentPhase().contains(Phase.UNIT_CLICK)) {
             // 작동 -> back에서 yutResult 등을 업데이트해야함.
             // apiMoveUnit(selectedYut, selectedUnit);
 
+            // [1] 유닛 클릭 가능 횟수를 1번 소모
             gameState.getCurrentPhase().remove(Phase.UNIT_CLICK);
             checkAndActivateYutRecordClick();
             moveUnitRepaint();
@@ -70,6 +78,7 @@ public class GameManager {
                 gameState.setCurrentPlayer(backPlayerNum);
             }
         }
+
     }
 
     //Turn이 바뀌었는지 확인하고 이를 통해서 turn까지 바꿔줌
