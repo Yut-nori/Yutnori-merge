@@ -1,4 +1,4 @@
-package swing.gameBoard;
+package swing.gameBoard.centerPanel;
 
 public class UnitPosition {
     public static final int[][] rectangleUnitPositions;

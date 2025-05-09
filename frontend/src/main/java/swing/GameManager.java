@@ -1,9 +1,8 @@
 package swing;
 
 import swing.gameBoard.RightPanel.RightPanel;
-import swing.gameBoard.TopPanel;
+import swing.gameBoard.topPanel.TopPanel;
 import swing.gameBoard.leftPanel.LeftPanel;
-import swing.screen.Start;
 
 import javax.swing.*;
 import java.awt.*;

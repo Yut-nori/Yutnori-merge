@@ -1,4 +1,4 @@
-package swing.gameBoard;
+package swing.gameBoard.topPanel;
 
 
 import swing.GameManager;
