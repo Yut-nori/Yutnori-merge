@@ -15,7 +15,7 @@ public class TopPanel extends JPanel {
         setLayout(null);
 
         // [2] 패널의 위치와 크기 설정
-        setBounds(UIConstants.LEFT_PANEL_WDITH, 0, UIConstants.CENTER_PANEL_WIDTH, UIConstants.TOP_PANEL_HEIGHT );
+        setBounds(UIConstants.TOP_PANEL_START_X, TOP_PANEL_START_Y, UIConstants.TOP_PANEL_WIDTH, UIConstants.TOP_PANEL_HEIGHT );
 
         // [3] 텍스트 라벨 설정
         JLabel turnLabel = new JLabel("Player " + gm.getGameState().getCurrentPlayer() + 1 + "'s turn : " + gm.getGameState().getEvent());

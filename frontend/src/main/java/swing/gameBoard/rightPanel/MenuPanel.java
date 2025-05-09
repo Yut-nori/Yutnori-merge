@@ -7,6 +7,8 @@ import javax.swing.*;
 import java.awt.*;
 
 class MenuPanel extends JPanel {
+
+    // ** Constructor **
     public MenuPanel(GameManager gm) {
         setLayout(null);
         setOpaque(false);
