@@ -16,12 +16,13 @@ public class GameAPI {
     }
     // 랜덤 윷 던지기 (메서드 오버로딩)
     public void throwYut() {
-        playManager.playerThrowYut(false);
+        playManager.playerThrowYut(false, 0);
         System.out.println("랜덤 윷 api 호출됨");
     }
 
     // 지정 윷 던지기 (메서드 오버로딩) 해결
     public void throwYut(int designatedYutResult) {
+        playManager.playerThrowYut(false, designatedYutResult);
         System.out.println("지정 윷 api 호출됨");
     }
 

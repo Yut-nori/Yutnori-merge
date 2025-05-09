@@ -3,6 +3,7 @@ package controller;
 import java.util.List;
 
 import controller.interfaces.IMoveManager;
+import model.Status;
 import view.interfaces.IView;
 import model.GroupUnit;
 import model.Player;
@@ -12,8 +13,7 @@ public class MoveManager implements IMoveManager {
     private GroupManager groupManager;
     private GroupMovement groupMovement;
     private GroupPositionChecker groupPositionChecker;
-    private IView view;
-
+    //private IView view;
     /*
         public static final int ENEMY_CAPTURED = 1;
         public static final int FRIEND_STACKED = 2;
@@ -26,7 +26,7 @@ public class MoveManager implements IMoveManager {
         this.groupManager = groupManager;
         this.groupMovement = new GroupMovement(groupManager);
         this.groupPositionChecker = new GroupPositionChecker(groupManager);
-        this.view = view;
+        //this.view = view;
     }
 
     @Override
@@ -52,6 +52,13 @@ public class MoveManager implements IMoveManager {
         } else if (groupPositionChecker.isFriendlyInPosition(current, newPos)) {
             result = "FRIEND_STACKED";
         } else if(completedGroup.isHistoryEmpty()){
+            boolean isFirstMove = true;
+            for(GroupUnit groupUnit : playerGroups){
+                if(groupUnit.getGroupStatus() == Status.ON){
+                    throwResult.add(-1);
+                    break;
+                }
+            }
             result ="FIRST_MOVE_BACK";
         }
 

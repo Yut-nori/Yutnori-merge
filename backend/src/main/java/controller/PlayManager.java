@@ -22,6 +22,7 @@ public class PlayManager {
     private List<Integer> throwResult;
     private boolean isTest;
     private String resultEvent;
+    private boolean setMode;
 
     /* TurnManger와 MoveManager 인터페이스화*/
     protected  GroupManager groupManager;
@@ -84,9 +85,10 @@ public class PlayManager {
         return false;
     }
 
-    public void playerThrowYut(boolean isTest) {
+    public void playerThrowYut(boolean isTest, int setYut) {
+        this.setMode= isTest;
         Player current = this.playerList.get(currentPlayer);
-        this.throwResult.addAll(turnManager.throwResult(current, isTest));
+        this.throwResult.addAll(turnManager.throwResult(current, isTest, setYut));
     }
 
     public List<Integer> getYutResult() {

@@ -58,16 +58,11 @@ TurnManager implements ITurnManager {
         return resultEvent;
     }
 
-    public List<Integer> throwResult(Player player, boolean isTest){
+    public List<Integer> throwResult(Player player, boolean isTest, int setYut){
         List<Integer> throwResult = new ArrayList<>();
         if(!isTest) throwResult.addAll(player.throwYut());
         else {
-
-            /*
-            int testResultIdx = player.getPlayerID();
-            int[] playerTestResult = testResult[testResultIdx];
-            throwResult = Arrays.stream(playerTestResult).boxed().collect(Collectors.toList());
-        */
+            throwResult.add(setYut);
         }
         return throwResult;
     }
