@@ -1,6 +1,7 @@
 package swing.gameBoard.rightPanel;
 
 import swing.GameManager;
+import swing.util.UIConstants;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,37 +12,52 @@ class PlayerUnitPanel extends JPanel {
      * 이후에 수정이 필요한 부분
      * 1. unitNumber의 경우 말판 위에 나가있는 개수만큼 빼줘야함
      */
+
+    // ** Constructor **
     public PlayerUnitPanel(GameManager gm, String playerName, Color unitColor, int unitNumber) {
-        setLayout(new BorderLayout());
+
+        // [1] 투명도 설정
         setOpaque(false);
 
+        // [2] 레이아웃을 BorderLayout으로 설정
+        setLayout(new BorderLayout());
+
+        // [3] 플레이어 정보 텍스트 라벨 생성
         JLabel nameLabel = new JLabel(playerName);
         nameLabel.setForeground(Color.WHITE);
-        nameLabel.setFont(new Font("맑은 고딕", Font.BOLD, 16));
+        nameLabel.setFont(new Font(UIConstants.PLAYER_UNIT_TRACKER_FONT, Font.BOLD, 16));
         nameLabel.setPreferredSize(new Dimension(70, 40));
         nameLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
+        // [4] Ready 중인 플레이어의 말을 그리는 패널
         JPanel circlePanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 5));
         circlePanel.setOpaque(false);
 
-        int playerNum = switch (playerName) {
+        // [5] 텍스트에 따라 플레이어 인덱스 설정
+        int playerIndex = switch (playerName) {
             case "Player 1" -> 0;
             case "Player 2" -> 1;
             case "Player 3" -> 2;
             case "Player 4" -> 3;
             default -> -1;
         };
+
         /**
          * player의 back에서 아직 출발하지 않은 Ready 상태의 개수에 있는 것만 출력
          */
+        // [6] 현재 상태의 말들의 위치에 따라 해당 위치 정보에 따라 그리기
         int[][] unitPositions = gm.getGameState().getUnitPosition();
         for (int i = 0; i < unitPositions.length; i++) {
-            int position = gm.getGameState().getUnitPosition()[playerNum][i];
-            if(position == -1)
-                circlePanel.add(new UnitIcon(gm, unitColor, playerNum, i, 1));
+            // [6.1] 위치 정보 index 가져오기
+            int position = gm.getGameState().getUnitPosition()[playerIndex][i];
+
+            // [6.2] Ready 상태의 말들을 추가
+            if(position == -1)  circlePanel.add(new UnitIcon(gm, unitColor, playerIndex, i, 1));
         }
 
+        // [7] 패널에 주가
         add(nameLabel, BorderLayout.NORTH);
         add(circlePanel, BorderLayout.CENTER);
     }
+
 }
