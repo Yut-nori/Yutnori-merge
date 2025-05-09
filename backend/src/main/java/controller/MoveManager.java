@@ -30,20 +30,9 @@ public class MoveManager implements IMoveManager {
     }
 
     @Override
-    public int handleUserMove(List<GroupUnit> playerGroups, List<Integer> throwResult) {
-        view.displayBoardStatus(playerGroups.get(0).getPlayer(), playerGroups);
-        view.ShowDiceResult(throwResult);
-
-        int selectUnit = view.getGroupSelection();
-        int selectPosition = view.getMoveSelection();
-
-        GroupUnit selectedGroup = playerGroups.get(selectUnit);
-        int moveDistance = throwResult.get(selectPosition);
-
-        groupMovement.moveGroup(selectedGroup, moveDistance);
-
-        throwResult.remove(selectPosition);
-        return selectUnit;
+    public void handleUserMove(List<GroupUnit> playerGroups, int throwResult, int selectedGroup) {
+        GroupUnit movingGroup = playerGroups.get(selectedGroup);
+        groupMovement.moveGroup(movingGroup, throwResult);
     }
 
     @Override

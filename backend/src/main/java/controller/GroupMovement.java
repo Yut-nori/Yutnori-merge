@@ -4,6 +4,7 @@ import model.GroupUnit;
 import model.Unit;
 import model.board.Board;
 import model.board.Position;
+import model.Status;
 
 public class GroupMovement {
     private GroupManager groupManager;
@@ -50,7 +51,7 @@ public class GroupMovement {
             if (group.isHistoryEmpty()) {
                 return;
             }
-            if (group.getCurrentPosition().getIndex() == 0 && group.getUnitGroup().get(0).getStatus() == Unit.Status.ON) {
+            if (group.getCurrentPosition().getIndex() == 0 && group.getUnitGroup().get(0).getStatus() == Status.ON) {
                 if (distance == -1) {
                     System.out.println("[빽도: 0 → 이전 경로로 복귀]");
                     group.popHistory(); // 0 제거
@@ -111,8 +112,8 @@ public class GroupMovement {
         }
 
         for (Unit unit : group.getUnitGroup()) {
-            if (unit.getStatus() == Unit.Status.READY) {
-                unit.setStatus(Unit.Status.ON);
+            if (unit.getStatus() == Status.READY) {
+                unit.setStatus(Status.ON);
             }
         }
         group.setPosition(current);

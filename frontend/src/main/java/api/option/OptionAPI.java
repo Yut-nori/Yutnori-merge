@@ -4,7 +4,7 @@ import controller.PlayManager;
 
 public class OptionAPI {
 
-    private static PlayManager playManager;
+    private PlayManager playManager;
 
     public void setOption(int playerNum, int unitNum, int shape, boolean isTest) {
         // API 호출 로직
@@ -16,7 +16,7 @@ public class OptionAPI {
         System.out.println("Option set!: " + playerNum + ", " + unitNum + ", " + shape);
     }
 
-    public static PlayManager getPlayManager() {
+    public PlayManager getPlayManager() {
         return playManager;
     }
 }

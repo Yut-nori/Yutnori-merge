@@ -5,6 +5,7 @@ import java.util.List;
 
 import model.GroupUnit;
 import model.Player;
+import model.Status;
 import model.Unit;
 import model.board.Board;
 import controller.interfaces.*;
@@ -39,6 +40,7 @@ public class PlayManager {
         this.playerUnitNum = playerUnitNum;
         this.isTest = isTest;
         this.playerList = new ArrayList<>();
+        this.throwResult = new ArrayList<>();
 
         groupManager = new GroupManager();
         iView = new GameView();
@@ -91,18 +93,14 @@ public class PlayManager {
         return this.throwResult;
     }
 
-    public void setUnitMove(int selectUnit, int selectedYut) {
+    public void setUnitMove(int selectGroup, int selectedYut) {
         Player current = this.playerList.get(currentPlayer);
         List<GroupUnit> playerGroups = groupManager.getGroupsByPlayer(current);
-        int selected = 0;
-        /*for(int i=0;i<throwResult.size();i++) {
-            if(throwResult.get(i) == selectedYut) {
-                selected = throwResult.get(i);
-                throwResult.remove(i);
-                break;
-            }
-        }*/
-        this.resultEvent = turnManager.move(current, playerGroups, throwResult);
+
+        throwResult.remove(throwResult.indexOf(selectedYut));
+
+        this.resultEvent = turnManager.move(current, playerGroups, selectedYut, selectGroup, throwResult);
+
     }
 
     public int getCurrentPlayer(){
@@ -113,6 +111,36 @@ public class PlayManager {
         return this.resultEvent;
     }
 
+
+    //-1 출발 안 함
+    //-2 끝난거
+    //
+    public int[][] getAllUnitsPosition(){
+        List<GroupUnit> playerAllGroups;
+        int [][] allUnitsPosition = new int[this.playerList.size()][playerUnitNum];
+        for(int i = 0; i < this.playerList.size(); i++){
+            playerAllGroups = groupManager.getGroupsByPlayer(this.playerList.get(i));
+            for(int j = 0; j < playerAllGroups.size(); j++){
+                allUnitsPosition[i][j] = playerAllGroups.get(j).getCurrentPosition().getIndex();
+                if(allUnitsPosition[i][j] == 0 && playerAllGroups.get(j).getGroupStatus() == Status.READY){
+                    allUnitsPosition[i][j] = -1;
+                }
+            }
+        }
+        return allUnitsPosition;
+    }
+
+    public int[][] getUnitsNumPerGroups(){
+        List<GroupUnit> playerAllGroups;
+        int [][] unitsPerGroups = new int[this.playerList.size()][playerUnitNum];
+        for(int i = 0; i < this.playerList.size(); i++){
+            playerAllGroups = groupManager.getGroupsByPlayer(this.playerList.get(i));
+            for(int j = 0; j < playerAllGroups.size(); j++){
+                unitsPerGroups[i][j] = playerAllGroups.get(j).getUnitGroup().size();
+            }
+        }
+        return unitsPerGroups;
+    }
 
     public List<Player> getPlayerList() {
         return playerList;

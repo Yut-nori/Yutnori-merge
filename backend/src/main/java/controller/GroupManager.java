@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import model.GroupUnit;
 import model.Player;
+import model.Status;
 import model.Unit;
 import model.board.Position;
 
@@ -44,14 +45,14 @@ public class GroupManager {
 
     public void unitPassed(GroupUnit group) {
         for (Unit unit : group.getUnitGroup()) {
-            unit.setStatus(Unit.Status.END);
+            unit.setStatus(Status.END);
         }
         groupList.remove(group);
     }
 
     public void resetGroupToStart(GroupUnit group) {
         for (Unit unit : group.getUnitGroup()) {
-            unit.setStatus(Unit.Status.READY);
+            unit.setStatus(Status.READY);
             unit.setPosition(BoardManager.getBoard().getPositionArr()[0]);
         }
         group.setPosition(BoardManager.getBoard().getPositionArr()[0]);

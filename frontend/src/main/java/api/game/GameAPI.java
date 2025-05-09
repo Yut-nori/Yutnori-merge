@@ -8,9 +8,12 @@ import java.util.List;
 
 public class GameAPI {
 
-    private static PlayManager playManager = OptionAPI.getPlayManager();
+    private PlayManager playManager;
     private List<Integer> throwResult;
 
+    public void setPlayManager(PlayManager playManager) {
+        this.playManager = playManager;
+    }
     // 랜덤 윷 던지기 (메서드 오버로딩)
     public void throwYut() {
         playManager.playerThrowYut(false);
@@ -34,17 +37,19 @@ public class GameAPI {
         return playManager.getYutResult();
     }
 
-    //해결
+    //해결 -> 연결하면 끝
     public int getCurrentPlayer() {
-        return 0;
+        return playManager.getCurrentPlayer();
     }
 
+    //이게 움직인 다음 위치
     public int[][] getUnitPositions() {
-        return new int[1][1];
+        return playManager.getAllUnitsPosition();
     }
 
+    //한 그룹 당, 유닛의 개수
     public int[][] getUnitNumberPerPosition() {
-        return new int[1][1];
+        return playManager.getUnitsNumPerGroups();
     }
 
     //해결
@@ -53,7 +58,7 @@ public class GameAPI {
     }
 
     public boolean gameEnd() {
-        return false;
+        return playManager.checkEnd();
     }
 
 }
