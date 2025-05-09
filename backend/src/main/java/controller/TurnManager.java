@@ -3,6 +3,7 @@ package controller;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ArrayList;
+import model.Status;
 import java.util.stream.Collectors;
 
 import controller.interfaces.IMoveManager;
@@ -42,9 +43,10 @@ TurnManager implements ITurnManager {
         this.currentPlayer = (this.currentPlayer+1)%this.numPlayer;
     }
 
-    public void move(Player current, List<GroupUnit> playerGroups, List<Integer> selectedResult ){
-        int selectedGroup = moveManager.handleUserMove(playerGroups, selectedResult);
-        moveManager.handlePostMoveActions(current, playerGroups, selectedResult, selectedGroup);
+    public String move(Player current, List<GroupUnit> playerGroups, int selectedResult, int selectedGroup, List<Integer> throwResult) {
+        moveManager.handleUserMove(playerGroups, selectedResult, selectedGroup);
+        String resultEvent = moveManager.handlePostMoveActions(current, playerGroups, throwResult, selectedGroup);
+
         //playerGroups = groupManager.getGroupsByPlayer(current);
         //view.displayBoardStatus(current, groupManager.getGroupsByPlayer(current));
         //이동을 완료한 후, 모든 플레이어의 유닛의 상태를 조회하여, 게임 종료 여부 확인
@@ -52,6 +54,7 @@ TurnManager implements ITurnManager {
             current.setWinner(true);
             view.displayVictory(current);
         }
+        return resultEvent;
     }
 
     public List<Integer> throwResult(Player player, boolean isTest){
@@ -69,29 +72,6 @@ TurnManager implements ITurnManager {
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     //@Override
     //현재 플레이어 정보 getter
     public int getNextPlayer() {
@@ -101,7 +81,7 @@ TurnManager implements ITurnManager {
     //doPlayerTurn에서 호출하여, 모든 유닛이 빠져나왔는지 검사
     private boolean isAllUnitsEnded(Player player) {
         for (Unit unit : player.getUnits()) {
-            if(unit.getStatus() != Unit.Status.END){ return false;}
+            if(unit.getStatus() != Status.END){ return false;}
         }
         return true;
     }

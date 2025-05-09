@@ -4,6 +4,7 @@ import model.GroupUnit;
 import model.Player;
 import model.Unit;
 import model.board.Position;
+import model.Status;
 
 import java.util.List;
 
@@ -25,7 +26,7 @@ public class GroupPositionChecker {
                 // 병합 대상 그룹이 READY 에 있으면 합치지 않음.
                 boolean allReady = true;
                 for (Unit unit : group.getUnitGroup()) {
-                    if (unit.getStatus() != Unit.Status.READY) {
+                    if (unit.getStatus() != Status.READY) {
                         allReady = false;
                         break;
                     }
@@ -54,7 +55,7 @@ public class GroupPositionChecker {
                 // READY 상태에 있는 상대 Unit 은 잡지 않음.
                 boolean allReady = true;
                 for (Unit unit : group.getUnitGroup()) {
-                    if (unit.getStatus() != Unit.Status.READY) {
+                    if (unit.getStatus() != Status.READY) {
                         allReady = false;
                         break;
                     }

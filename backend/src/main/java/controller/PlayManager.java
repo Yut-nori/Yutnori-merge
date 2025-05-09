@@ -5,6 +5,7 @@ import java.util.List;
 
 import model.GroupUnit;
 import model.Player;
+import model.Status;
 import model.Unit;
 import model.board.Board;
 import controller.interfaces.*;
@@ -20,9 +21,9 @@ public class PlayManager {
     private Board gameBoard;
     private List<Integer> throwResult;
     private boolean isTest;
+    private String resultEvent;
 
     /* TurnManger와 MoveManager 인터페이스화*/
-    protected  BoardManager boardManager;
     protected  GroupManager groupManager;
     protected  TurnManager turnManager;
     protected  MoveManager moveManager;
@@ -38,14 +39,16 @@ public class PlayManager {
         this.numPlayer = numPlayer;
         this.playerUnitNum = playerUnitNum;
         this.isTest = isTest;
+        this.playerList = new ArrayList<>();
+        this.throwResult = new ArrayList<>();
 
-        boardManager = new BoardManager();
         groupManager = new GroupManager();
         iView = new GameView();
         moveManager = new MoveManager(groupManager, iView);
         turnManager = new TurnManager(numPlayer, groupManager, moveManager, iView);
 
-        this.gameBoard = new Board(boardEdgeNum);
+        BoardManager.createBoard(boardEdgeNum);
+        this.gameBoard = BoardManager.getBoard();
 
         createPlayer(playerNameList, playerUnitNum);
         createGroupManager(this.playerList);
@@ -81,28 +84,61 @@ public class PlayManager {
         return false;
     }
 
-    public List<Integer> getYutResult(boolean isTest, int[][] testResult) {
+    public void playerThrowYut(boolean isTest) {
         Player current = this.playerList.get(currentPlayer);
         this.throwResult.addAll(turnManager.throwResult(current, isTest));
+    }
+
+    public List<Integer> getYutResult() {
         return this.throwResult;
     }
 
-    public void setUnitMove(int selectUnit, int selectedYut) {
+    public void setUnitMove(int selectGroup, int selectedYut) {
         Player current = this.playerList.get(currentPlayer);
         List<GroupUnit> playerGroups = groupManager.getGroupsByPlayer(current);
-        int selected = 0;
-        /*for(int i=0;i<throwResult.size();i++) {
-            if(throwResult.get(i) == selectedYut) {
-                selected = throwResult.get(i);
-                throwResult.remove(i);
-                break;
-            }
-        }*/
-        turnManager.move(current, playerGroups, throwResult);
+
+        throwResult.remove(throwResult.indexOf(selectedYut));
+
+        this.resultEvent = turnManager.move(current, playerGroups, selectedYut, selectGroup, throwResult);
     }
 
     public int getCurrentPlayer(){
         return this.currentPlayer;
+    }
+
+    public String returnEvents(){
+        return this.resultEvent;
+    }
+
+
+    //-1 출발 안 함
+    //-2 끝난거
+    //
+    public int[][] getAllUnitsPosition(){
+        List<GroupUnit> playerAllGroups;
+        int [][] allUnitsPosition = new int[this.playerList.size()][playerUnitNum];
+        for(int i = 0; i < this.playerList.size(); i++){
+            playerAllGroups = groupManager.getGroupsByPlayer(this.playerList.get(i));
+            for(int j = 0; j < playerAllGroups.size(); j++){
+                allUnitsPosition[i][j] = playerAllGroups.get(j).getCurrentPosition().getIndex();
+                if(allUnitsPosition[i][j] == 0 && playerAllGroups.get(j).getGroupStatus() == Status.READY){
+                    allUnitsPosition[i][j] = -1;
+                }
+            }
+        }
+        return allUnitsPosition;
+    }
+
+    public int[][] getUnitsNumPerGroups(){
+        List<GroupUnit> playerAllGroups;
+        int [][] unitsPerGroups = new int[this.playerList.size()][playerUnitNum];
+        for(int i = 0; i < this.playerList.size(); i++){
+            playerAllGroups = groupManager.getGroupsByPlayer(this.playerList.get(i));
+            for(int j = 0; j < playerAllGroups.size(); j++){
+                unitsPerGroups[i][j] = playerAllGroups.get(j).getUnitGroup().size();
+            }
+        }
+        return unitsPerGroups;
     }
 
     public List<Player> getPlayerList() {

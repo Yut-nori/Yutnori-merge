@@ -44,7 +44,7 @@ public class MainBoard extends JPanel {
                 default -> throw new IllegalStateException("Unexpected value: " + i);
             };
             for(int j = 0; j < unitPosition[i].length; j++) {
-                if(unitPosition[i][j] == -1) continue;
+                if(unitPosition[i][j] == -1 || unitGrouped[i][j] == 0) continue;
                 switch (shape) {
                     case 4 -> addUnit(i, j, rectangleUnitPositions[unitPosition[i][j]][0], rectangleUnitPositions[unitPosition[i][j]][1], unitGrouped[i][j], color);
                     case 5 -> addUnit(i, j, pentagonUnitPositions[unitPosition[i][j]][0], pentagonUnitPositions[unitPosition[i][j]][1], unitGrouped[i][j], color);

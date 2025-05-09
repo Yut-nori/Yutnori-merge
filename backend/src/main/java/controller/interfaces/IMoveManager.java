@@ -4,6 +4,6 @@ import model.GroupUnit;
 import model.Player;
 
 public interface IMoveManager {
-    int handleUserMove(List<GroupUnit> groups, List<Integer> result);
-    void handlePostMoveActions(Player p, List<GroupUnit> groups, List<Integer> result, int selectedGroup);
+    void handleUserMove(List<GroupUnit> groups, int result, int selectedGroup);
+    String handlePostMoveActions(Player p, List<GroupUnit> groups, List<Integer> result, int selectedGroup);
 }

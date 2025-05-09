@@ -6,6 +6,7 @@ import swing.gameBoard.rightPanel.RightPanel;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.EnumSet;
 import java.util.List;
 
 public class GameManager {
@@ -37,6 +38,7 @@ public class GameManager {
     // ** API 호출 메서드 **
     public void apiSetOption(int playerNum, int unitNum, int shape, boolean isTest) {
         optionAPI.setOption(playerNum, unitNum, shape, isTest);
+        gameAPI.setPlayManager(optionAPI.getPlayManager());
     }
     public void apiThrowYut(int designatedYutResult) {
         if (designatedYutResult == 0) gameAPI.throwYut(); // 랜덤 윷 던지기 호출
@@ -80,6 +82,11 @@ public class GameManager {
             // [1] 유닛 클릭이 불가능하게 변경
             gameState.getCurrentPhase().remove(Phase.UNIT_CLICK);
             checkAndActivateYutRecordClick();
+
+            if(turnChanged()) {
+                gameState.setCurrentPhase(EnumSet.of(Phase.BUTTON_CLICK));
+                gameState.setButtonClickRemaining(1);
+            }
 
             setGameStateByBackWhenMoveUnit();
 
@@ -135,8 +142,8 @@ public class GameManager {
     }
 
     private void updateGameStateWhenThrowingYut() {
-        if(turnChanged())
-            gameState.setLastResult(-1);
+        /* if(turnChanged())
+            gameState.setLastResult(-1);*/
         setGameStateByBackWhenThrowYut();
 
         gameState.setButtonClickRemaining(gameState.getButtonClickRemaining() - 1);
