@@ -6,6 +6,7 @@ import swing.gameBoard.rightPanel.RightPanel;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.List;
 
@@ -63,6 +64,7 @@ public class GameManager {
 
         // [2] GameState 업데이트
         updateGameStateWhenThrowingYut();
+        debug();
 
         // [3] LeftPanel, topPanel을 새롭게 그림
         leftRepaint();
@@ -89,6 +91,7 @@ public class GameManager {
             }
 
             setGameStateByBackWhenMoveUnit();
+            debug();
 
             if(gameState.isGameEnd())
                 screenManager.end();
@@ -188,9 +191,10 @@ public class GameManager {
                 break;
             }
         }
+
         panelContainer.add(panel);
-        panelContainer.revalidate();
         panelContainer.repaint();
+        panelContainer.revalidate();
     }
 
 
@@ -202,5 +206,14 @@ public class GameManager {
 
     public GameState getGameState() {
         return gameState;
+    }
+
+    public void debug() {
+        System.out.println("Player: " + gameState.getCurrentPlayer());
+        System.out.println("Yut: " + gameState.getYutResults());
+        System.out.println("Event: " + gameState.getEvent());
+        System.out.println("Turn: " + gameState.getCurrentPhase());
+        System.out.println("Unit: " + Arrays.deepToString(gameState.getUnitPosition()));
+        System.out.println("UnitNumberPerPosition: " + Arrays.deepToString(gameState.getUnitNumberPerPosition()));
     }
 }
