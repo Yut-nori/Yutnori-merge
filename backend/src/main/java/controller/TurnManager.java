@@ -43,7 +43,7 @@ TurnManager implements ITurnManager {
         this.currentPlayer = (this.currentPlayer+1)%this.numPlayer;
     }
 
-    public String move(Player current, List<GroupUnit> playerGroups, int selectedResult, int selectedGroup, List<Integer>throwResult) {
+    public String move(Player current, List<GroupUnit> playerGroups, int selectedResult, int selectedGroup, List<Integer> throwResult) {
         moveManager.handleUserMove(playerGroups, selectedResult, selectedGroup);
         String resultEvent = moveManager.handlePostMoveActions(current, playerGroups, throwResult, selectedGroup);
 
@@ -70,29 +70,6 @@ TurnManager implements ITurnManager {
         }
         return throwResult;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     //@Override
