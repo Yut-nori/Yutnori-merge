@@ -41,26 +41,24 @@ public class MoveManager implements IMoveManager {
         GroupUnit completedGroup = playerGroups.get(selectedGroup);
         Position newPos = completedGroup.getCurrentPosition();
         boolean mode = checkMode;
-        String result = "NORMAL_MOVE";
+        String result = "Unit Move..";
 
         //hasPassedZero()를 검사하도록 추가
         if (newPos.getIndex() > 0 && completedGroup.hasPassedZero()) {
-            result = "GOAL_REACHED";
+            result = "Unit Passed!";
             groupManager.unitPassed(completedGroup); // 정확한 그룹 제거
         } else if (completedGroup.isHistoryEmpty()) {
-            for (GroupUnit groupUnit : playerGroups) {
-                if (groupUnit.getGroupStatus() == Status.ON) {
-                    throwResult.add(-1);
-                    break;
-                }
+            if(groupPositionChecker.isFirstMoveIsBack(playerGroups, throwResult)){
+                throwResult.add(-1);
+                result = "Select available Move or Units";
             }
-            result = "FIRST_MOVE_BACK";
+            else result = "No available Units";
         } else if (groupPositionChecker.isEnemytInPosition(current, newPos)) {
-            result = "ENEMY_CAPTURED";
+            result = "Enemy Captured!";
             if(!mode)
                 throwResult.addAll(current.throwYut());
         } else if (groupPositionChecker.isFriendlyInPosition(current, newPos)) {
-            result = "FRIEND_STACKED";
+            result = "Combine Units!";
         }
         view.displayMoveResult(result);
         return result;
