@@ -17,13 +17,15 @@ public class GameAPI {
     // 랜덤 윷 던지기 (메서드 오버로딩)
     public void throwYut() {
         playManager.playerThrowYut(false, 0);
-        System.out.println("랜덤 윷 api 호출됨");
+        System.out.println("called random throw api");
+        //System.out.println("랜덤 윷 api 호출됨");
     }
 
     // 지정 윷 던지기 (메서드 오버로딩) 해결
     public void throwYut(int designatedYutResult) {
-        playManager.playerThrowYut(false, designatedYutResult);
-        System.out.println("지정 윷 api 호출됨");
+        playManager.playerThrowYut(true, designatedYutResult);
+        System.out.println("called setYut throw api, result is " + designatedYutResult);
+        //System.out.println("지정 윷 api 호출됨");
     }
 
     //해결
@@ -35,6 +37,7 @@ public class GameAPI {
 
     //해결
     public List<Integer> getYutResult() {
+        System.out.println("get yut result");
         return playManager.getYutResult();
     }
 

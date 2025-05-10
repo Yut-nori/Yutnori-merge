@@ -64,6 +64,7 @@ TurnManager implements ITurnManager {
         else {
             throwResult.add(setYut);
         }
+        System.out.println("return throwResult, "+"isTest : "+isTest+" value : "+throwResult);
         return throwResult;
     }
 
