@@ -47,12 +47,6 @@ public class MoveManager implements IMoveManager {
         if (newPos.getIndex() > 0 && completedGroup.hasPassedZero()) {
             result = "GOAL_REACHED";
             groupManager.unitPassed(completedGroup); // 정확한 그룹 제거
-        } else if (groupPositionChecker.isEnemytInPosition(current, newPos)) {
-            result = "ENEMY_CAPTURED";
-            if(!mode)
-                throwResult.addAll(current.throwYut());
-        } else if (groupPositionChecker.isFriendlyInPosition(current, newPos)) {
-            result = "FRIEND_STACKED";
         } else if (completedGroup.isHistoryEmpty()) {
             for (GroupUnit groupUnit : playerGroups) {
                 if (groupUnit.getGroupStatus() == Status.ON) {
@@ -61,6 +55,12 @@ public class MoveManager implements IMoveManager {
                 }
             }
             result = "FIRST_MOVE_BACK";
+        } else if (groupPositionChecker.isEnemytInPosition(current, newPos)) {
+            result = "ENEMY_CAPTURED";
+            if(!mode)
+                throwResult.addAll(current.throwYut());
+        } else if (groupPositionChecker.isFriendlyInPosition(current, newPos)) {
+            result = "FRIEND_STACKED";
         }
         view.displayMoveResult(result);
         return result;
