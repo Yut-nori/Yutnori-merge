@@ -38,7 +38,8 @@ public class GroupMovement {
 
                     moveInnerPath(group, myPath, distance);
                 } else {
-                    //이미 내부로 움직이던 경우
+                    //이미 내부로 움직이던 경우 도착점
+                    System.out.println("Path end");
                     group.releasePath();
                     moveNormal(group, distance);
 
@@ -142,14 +143,13 @@ public class GroupMovement {
             group.setPosition(myPath.get(currentPathIdx + distance));
         } else {
             int normalDistance = distance - remainToPathEnd;
-            group.releasePath();
 
             for(int i=1;i<=remainToPathEnd;i++) {
                 group.pushHistory(myPath.get(currentPathIdx + i));
                 if(myPath.get(currentPathIdx+i).getIndex() == 0) group.markPassedZero();
             }
             group.setPosition(myPath.get(myPath.size() - 1));
-            moveNormal(group, normalDistance);
+            if(normalDistance > 0) moveNormal(group, normalDistance);
         }
     }
 }
