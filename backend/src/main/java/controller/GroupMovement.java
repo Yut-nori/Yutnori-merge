@@ -74,6 +74,7 @@ public class GroupMovement {
                         // 정상적으로 이전 경로로 이동
                         Position backPos = board.getPosition(group.peekHistory());
                         group.setPosition(backPos);
+                        group.markNotPassedZero();
                     }
                 } else {
                     // 빽도가 아니면 → 완주로 처리
