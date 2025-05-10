@@ -11,7 +11,7 @@ public class GameState {
     private List<Integer> yutResults;
     private int lastResult;
     //만약 yutResults보다 커지게 되면 button 동작 안하게
-    private int buttonClickRemaining = 0;
+    private int countClickedButton;
 
     /**
      * 어떤 YutResult를 클릭했는지 setting /
@@ -25,9 +25,9 @@ public class GameState {
 
     private EnumSet<Phase> currentPhase;
 
+    private String event;
 
-
-    private String event = "Event";
+    private boolean gameEnd;
 
     public GameState() {
         yutResults = new ArrayList<>();
@@ -45,18 +45,15 @@ public class GameState {
         this.isTest = isTest;
         this.yutResults.clear();
         this.lastResult = 1;
-        this.currentPlayer = 1;
+        this.currentPlayer = 0;
         this.unitPosition = new int[playerNum][UnitNum];
         for(int i = 0; i < playerNum; i++)
             Arrays.fill(this.unitPosition[i], -1);
         this.unitNumberPerPosition = new int[playerNum][UnitNum];
         this.currentPhase = EnumSet.of(Phase.BUTTON_CLICK);
-        this.buttonClickRemaining = 1;
+        this.countClickedButton = 0;
         this.clickedYutResult = 0;
-    }
-
-    public void consumeYutResult(int clicked) {
-        if (!yutResults.isEmpty()) yutResults.remove(clicked);
+        this.gameEnd = false;
     }
 
     public int getTotalPlayerNumber() {
@@ -123,12 +120,12 @@ public class GameState {
         this.currentPhase = currentPhase;
     }
 
-    public int getButtonClickRemaining() {
-        return buttonClickRemaining;
+    public int getCountClickedButton() {
+        return countClickedButton;
     }
 
-    public void setButtonClickRemaining(int buttonClickRemaining) {
-        this.buttonClickRemaining = buttonClickRemaining;
+    public void setCountClickedButton(int countClickedButton) {
+        this.countClickedButton = countClickedButton;
     }
 
     public int getClickedYutResult() {
@@ -145,5 +142,13 @@ public class GameState {
 
     public void setEvent(String event) {
         this.event = event;
+    }
+
+    public boolean isGameEnd() {
+        return gameEnd;
+    }
+
+    public void setGameEnd(boolean gameEnd) {
+        this.gameEnd = gameEnd;
     }
 }

@@ -50,12 +50,12 @@ public class GameView implements IView {
 
 
     @Override
-    public void displayMoveResult(int result) {
+    public void displayMoveResult(String result) {
         switch (result) {
-            case 1 -> System.out.println("[*] 상대방 유닛을 잡았습니다! 윷을 한 번 더 던집니다!");
-            case 2 -> System.out.println("[*] 아군 유닛과 합쳐졌습니다.");
-            case 3 -> System.out.println("[*] 결승선을 통과했습니다! 유닛이 제거됩니다.");
-            case 4 -> System.out.println("[*] 출발한 유닛이 없어 [빽도]를 진행할 수 없습니다. 넘어갑니다.");
+            case "ENEMY_CAPTURED" -> System.out.println("[*] 상대방 유닛을 잡았습니다! 윷을 한 번 더 던집니다!");
+            case "FRIEND_STACKED" -> System.out.println("[*] 아군 유닛과 합쳐졌습니다.");
+            case "GOAL_REACHED"   -> System.out.println("[*] 결승선을 통과했습니다! 유닛이 제거됩니다.");
+            case "FIRST_MOVE_BACK" -> System.out.println("[*] 출발한 유닛이 없어 [빽도]를 진행할 수 없습니다. 넘어갑니다.");
             default -> System.out.println("[*] 일반 이동입니다.");
         }
     }

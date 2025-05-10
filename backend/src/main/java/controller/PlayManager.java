@@ -3,11 +3,16 @@ package controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import controller.interfaces.IMoveManager;
+import controller.interfaces.ITurnManager;
+import model.GroupUnit;
 import model.Player;
+import model.Status;
 import model.Unit;
 import model.board.Board;
-import controller.interfaces.*;
+import view.GameView;
 import view.interfaces.IView;
+
 
 public class PlayManager {
     private List<Player> playerList;
@@ -15,12 +20,13 @@ public class PlayManager {
     private int currentPlayer;
     private int playerUnitNum;
     private Board gameBoard;
-
+    private List<Integer> throwResult;
+    private boolean isTest;
+    private String resultEvent;
     /* TurnManger와 MoveManager 인터페이스화*/
-    protected  BoardManager boardManager;
-    protected  GroupManager groupManager;
-    protected  ITurnManager turnManager;
-    protected  IMoveManager moveManager;
+    protected GroupManager groupManager;
+    protected ITurnManager turnManager;
+    protected IMoveManager moveManager;
     protected  IView iView;
 
     public PlayManager(
@@ -28,23 +34,22 @@ public class PlayManager {
             int boardEdgeNum,
             String[] playerNameList,
             int playerUnitNum,
-            IView view,
-            BoardManager boardManager,
-            GroupManager groupManager,
-            IMoveManager moveManager,
-            ITurnManager turnManager
+            boolean isTest
     ) {
         this.numPlayer = numPlayer;
-        this.currentPlayer = 0;
-        this.playerList = new ArrayList<>();
         this.playerUnitNum = playerUnitNum;
-        this.groupManager = groupManager;
-        this.iView = view;
-        this.boardManager = boardManager;
-        this.moveManager = moveManager;
-        this.turnManager = turnManager;
+        this.isTest = isTest;
+        this.playerList = new ArrayList<>();
+        this.throwResult = new ArrayList<>();
+
+        groupManager = new GroupManager();
+        iView = new GameView();
+        this.moveManager = new MoveManager(this.groupManager, this.iView);
+        turnManager = new TurnManager(numPlayer, groupManager, moveManager, iView);
+
         BoardManager.createBoard(boardEdgeNum);
-        gameBoard = BoardManager.getBoard();
+        this.gameBoard = BoardManager.getBoard();
+
         createPlayer(playerNameList, playerUnitNum);
         createGroupManager(this.playerList);
     }
@@ -60,7 +65,7 @@ public class PlayManager {
         }
     }
 
-    //그룹 매니저 생성 -> (구)UnitManager
+    //그룹 매니저 생성
     public final void createGroupManager(List<Player> playerList) {
         for (Player player : playerList) {
             List<Unit> units = player.getUnits();
@@ -79,28 +84,71 @@ public class PlayManager {
         return false;
     }
 
-    public void GamePlay(boolean isTest, int[][] testResult) {
+
+    public void playerThrowYut() {
         Player current = this.playerList.get(currentPlayer);
-        turnManager.doPlayerTurn(current, isTest, testResult);
-        if(checkEnd()){
-            return;
-        }
-        this.currentPlayer = turnManager.getNextPlayer();
+        this.throwResult.addAll(turnManager.throwResult(current));
     }
 
-    public List<Player> getPlayerList() {
-        return playerList;
+    public void playerThrowYut(int setYut) {
+        this.throwResult.addAll(turnManager.throwResult(setYut));
     }
 
-    public int getCurrentPlayerIndex() {
+    public List<Integer> getYutResult() {
+        return this.throwResult;
+    }
+
+    public void setUnitMove(int selectGroup, int selectedYut) {
+        Player current = this.playerList.get(currentPlayer);
+        List<GroupUnit> playerGroups = groupManager.getGroupsByPlayer(current);
+        boolean isTest = this.isTest;
+
+        throwResult.remove(throwResult.indexOf(selectedYut));
+        this.resultEvent = turnManager.move(current, playerGroups, selectedYut, selectGroup, throwResult, isTest);
+
+        setCurrentPlayer();
+    }
+
+    public void setCurrentPlayer(){
+        this.currentPlayer = turnManager.getCurrentPlayer();
+    }
+
+    public int getCurrentPlayer(){
         return currentPlayer;
     }
 
-    public GroupManager getGroupManager() {
-        return groupManager;
+    public String returnEvents(){
+        return this.resultEvent;
     }
 
-    public IMoveManager getMoveManager() {
-        return moveManager;
+
+    //-1 출발 안 함
+    //-2 끝난거
+    //
+    public int[][] getAllUnitsPosition(){
+        List<GroupUnit> playerAllGroups;
+        int [][] allUnitsPosition = new int[this.playerList.size()][playerUnitNum];
+        for(int i = 0; i < this.playerList.size(); i++){
+            playerAllGroups = groupManager.getGroupsByPlayer(this.playerList.get(i));
+            for(int j = 0; j < playerAllGroups.size(); j++){
+                allUnitsPosition[i][j] = playerAllGroups.get(j).getCurrentPosition().getIndex();
+                if(allUnitsPosition[i][j] == 0 && playerAllGroups.get(j).getGroupStatus() == Status.READY){
+                    allUnitsPosition[i][j] = -1;
+                }
+            }
+        }
+        return allUnitsPosition;
+    }
+
+    public int[][] getUnitsNumPerGroups(){
+        List<GroupUnit> playerAllGroups;
+        int [][] unitsPerGroups = new int[this.playerList.size()][playerUnitNum];
+        for(int i = 0; i < this.playerList.size(); i++){
+            playerAllGroups = groupManager.getGroupsByPlayer(this.playerList.get(i));
+            for(int j = 0; j < playerAllGroups.size(); j++){
+                unitsPerGroups[i][j] = playerAllGroups.get(j).getUnitGroup().size();
+            }
+        }
+        return unitsPerGroups;
     }
 }

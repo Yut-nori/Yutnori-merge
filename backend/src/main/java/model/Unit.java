@@ -14,10 +14,6 @@ public class Unit {
     private Status status;
     private boolean isGrouped;
 
-    public enum Status {
-        READY, ON, END
-    }
-
     public Unit() {
         //this.currentPositionIdx = 0;
         this.currentBoard = BoardManager.getBoard();

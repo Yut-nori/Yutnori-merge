@@ -4,6 +4,7 @@ import model.GroupUnit;
 import model.Player;
 import model.Unit;
 import model.board.Position;
+import model.Status;
 
 import java.util.List;
 
@@ -13,7 +14,17 @@ public class GroupPositionChecker {
     public GroupPositionChecker(GroupManager groupManager) {
         this.groupManager = groupManager;
     }
-
+    public boolean isFirstMoveIsBack(List<GroupUnit> playerGroups, List<Integer> throwResult){
+        //한 유닛의 첫 움직임이 빽도지만, 다른 유닛이 필드에 올라가 있는 경우/다른 선택지가 있는 경우 -> 빽도 할 유닛 재선택
+        if(!throwResult.isEmpty()) return true;
+        for (GroupUnit groupUnit : playerGroups) {
+            if (groupUnit.getGroupStatus() == Status.ON) {
+                return true;
+            }
+        }
+        //모든 유닛이 가능한 첫 움직임이 빽도인 경우
+        return false;
+    }
     public boolean isFriendlyInPosition(Player current, Position position ) {
         List<GroupUnit> groups = groupManager.getGroupsByPlayer(current);
         GroupUnit currentGroup = null;
@@ -25,7 +36,7 @@ public class GroupPositionChecker {
                 // 병합 대상 그룹이 READY 에 있으면 합치지 않음.
                 boolean allReady = true;
                 for (Unit unit : group.getUnitGroup()) {
-                    if (unit.getStatus() != Unit.Status.READY) {
+                    if (unit.getStatus() != Status.READY) {
                         allReady = false;
                         break;
                     }
@@ -54,7 +65,7 @@ public class GroupPositionChecker {
                 // READY 상태에 있는 상대 Unit 은 잡지 않음.
                 boolean allReady = true;
                 for (Unit unit : group.getUnitGroup()) {
-                    if (unit.getStatus() != Unit.Status.READY) {
+                    if (unit.getStatus() != Status.READY) {
                         allReady = false;
                         break;
                     }
