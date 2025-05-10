@@ -1,5 +1,6 @@
 package swing.screen;
 
+import swing.GameState;
 import swing.ScreenManager;
 import swing.util.GlobalButtonListener;
 
@@ -30,6 +31,22 @@ public class End extends JPanel {
         // [2] 배경 이미지 로딩
         List<String> imageNames = getFileName(screenName);
         images = imageLoading(imageNames, screenName);
+
+        JLabel winnerLabel = new JLabel();
+        int winner = sm.getGm().getGameState().getCurrentPlayer() + 1;
+        GameState gameState = sm.getGm().getGameState();
+        if(sm.getGm().getGameState().getYutResults().isEmpty()) {
+            if(winner == 1)
+                winner = gameState.getTotalPlayerNumber();
+            else
+                winner -= 1;
+
+        }
+        winnerLabel.setText("Winner: " + winner);
+        winnerLabel.setFont(new Font("Arial", Font.BOLD, 50));
+        winnerLabel.setForeground(Color.WHITE); // 또는 Color.YELLOW 등
+        winnerLabel.setBounds(new Rectangle(520, 180, 300, 100));
+        add(winnerLabel);
 
         // [3] 게임 시작, 게임 종료 버튼 생성
         JButton reStartButton;
@@ -64,7 +81,7 @@ public class End extends JPanel {
                 {"man.png", 50, 100},
                 {"woman.png", 850, 100},
                 {"title.png", 480, 30},
-                {"winner.png", 450, 180}
+//                {"winner.png", 450, 180}
         };
 
         // [3] 이미지 그리기
