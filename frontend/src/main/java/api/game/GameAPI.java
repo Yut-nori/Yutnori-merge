@@ -14,23 +14,23 @@ public class GameAPI {
     public void setPlayManager(PlayManager playManager) {
         this.playManager = playManager;
     }
+
     // 랜덤 윷 던지기 (메서드 오버로딩)
     public void throwYut() {
-        playManager.playerThrowYut(false, 0);
+        playManager.playerThrowYut();
         System.out.println("called random throw api");
         //System.out.println("랜덤 윷 api 호출됨");
     }
 
     // 지정 윷 던지기 (메서드 오버로딩) 해결
     public void throwYut(int designatedYutResult) {
-        playManager.playerThrowYut(true, designatedYutResult);
+        playManager.playerThrowYut(designatedYutResult);
         System.out.println("called setYut throw api, result is " + designatedYutResult);
         //System.out.println("지정 윷 api 호출됨");
     }
 
     //해결
     public void moveUnit(int selectedYut, int selectedUnit) {
-        // 유닛 이동 로직
         playManager.setUnitMove(selectedUnit, selectedYut);
         System.out.println("유닛 이동 api 호출됨: " + selectedYut + ", " + selectedUnit);
     }

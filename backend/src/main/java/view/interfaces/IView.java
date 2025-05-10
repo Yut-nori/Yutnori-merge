@@ -22,7 +22,7 @@ public interface IView {
     int getMoveSelection();
 
     // 이동 결과에 대한 메시지 출력
-    void displayMoveResult(int result);
+    void displayMoveResult(String result);
 
     // 게임 승리 메시지 출력
     void displayVictory(Player player);
