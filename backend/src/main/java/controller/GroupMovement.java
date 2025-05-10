@@ -21,15 +21,17 @@ public class GroupMovement {
         Board board = BoardManager.getBoard();
         Position groupPosition = group.getCurrentPosition();
 
+        System.out.println("Current Path : " + group.getCurrentPathID());
+
         if (distance > 0) {
             //일반 바깥쪽
             if (!groupPosition.isVertex() && (groupPosition.getIndex() == 0 || groupPosition.getIndex() <= board.getLastOuterPosNum())) {
                 moveNormal(group, distance);
-            // 현 위치 Center
+                // 현 위치 Center
             } else if (groupPosition.isCenter() || group.isCenterToStart()) {
                 group.setCenterToStart(true);
                 moveCenterToStart(group, distance);
-            // Vertex의 경우
+                // Vertex의 경우
             } else if (groupPosition.isVertex()) {
                 // 그룹이 미리 타고오던 path가 없는 경우
                 if(!group.hasPath()) {
@@ -101,7 +103,6 @@ public class GroupMovement {
 
 
     private void moveNormal(GroupUnit group, int distance) {
-        group.releasePath();
         Position current = group.getCurrentPosition();
         for (int i = 0; i < distance; i++) {
             current = current.getNext();
