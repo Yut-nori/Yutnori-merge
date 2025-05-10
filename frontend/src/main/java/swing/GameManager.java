@@ -78,7 +78,10 @@ public class GameManager {
         // 유닛이 클릭 가능한 상태에서만 동작 수행
         // 현재 player가 움직일 수 있는 말인지 체크
         if(gameState.getCurrentPlayer() == playerNum && gameState.getCurrentPhase().contains(Phase.UNIT_CLICK)) {
+            //빽도가 나왔을 때 잘못클릭 시 수정하지 않도록 함.
+            int yutCount = gameState.getYutResults().size();
             gameAPI.moveUnit(gameState.getClickedYutResult(), unitNum);
+
             gameState.setCountClickedButton(gameState.getCountClickedButton() - 1);
 
             // [1] 유닛 클릭이 불가능하게 변경
@@ -91,6 +94,12 @@ public class GameManager {
             }
 
             setGameStateByBackWhenMoveUnit();
+
+            if(gameState.getClickedYutResult() == -1 && yutCount == gameState.getYutResults().size()) {
+                gameState.setCountClickedButton(gameState.getCountClickedButton() + 1);
+            }
+
+
             gameState.setClickedYutResult(0);
             checkAndActivateYutRecordClick();
             checkAndActivateButtonClick();

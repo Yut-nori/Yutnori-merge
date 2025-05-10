@@ -36,7 +36,6 @@ public class MainBoard extends JPanel {
 
         int[][] unitPosition = gm.getGameState().getUnitPosition();
         int[][] unitGrouped = gm.getGameState().getUnitNumberPerPosition();
-        System.out.println("UnitPosition: " + Arrays.deepToString(unitPosition));
         for(int i = 0; i < unitPosition.length; i++) {
             Color color = switch(i + 1) {
                 case 1 -> Color.RED;
