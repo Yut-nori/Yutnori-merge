@@ -1,10 +1,15 @@
 package controller.interfaces;
 
 import  java.util.List;
+
+import model.GroupUnit;
 import model.Player;
 
 public interface ITurnManager {
-   // void doPlayerTurn(Player player, boolean isTest, int[][] testResult);
-  //  List<Integer> throwResult(current, isTest);
-//    int getNextPlayer();
+   String move(Player current, List<GroupUnit> playerGroups, int selectedResult, int selectedGroup, List<Integer> throwResult, boolean isTest);
+   List<Integer> throwResult(Player player);
+   List<Integer> throwResult(int setYut);
+
+    void setNextPlayer();
+    int getCurrentPlayer();
 }

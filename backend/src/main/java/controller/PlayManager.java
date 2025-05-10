@@ -3,12 +3,13 @@ package controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import controller.interfaces.IMoveManager;
+import controller.interfaces.ITurnManager;
 import model.GroupUnit;
 import model.Player;
 import model.Status;
 import model.Unit;
 import model.board.Board;
-import controller.interfaces.*;
 import view.GameView;
 import view.interfaces.IView;
 
@@ -22,12 +23,10 @@ public class PlayManager {
     private List<Integer> throwResult;
     private boolean isTest;
     private String resultEvent;
-    private boolean setMode;
-
     /* TurnManger와 MoveManager 인터페이스화*/
-    protected  GroupManager groupManager;
-    protected  TurnManager turnManager;
-    protected  MoveManager moveManager;
+    protected GroupManager groupManager;
+    protected ITurnManager turnManager;
+    protected IMoveManager moveManager;
     protected  IView iView;
 
     public PlayManager(
@@ -45,7 +44,7 @@ public class PlayManager {
 
         groupManager = new GroupManager();
         iView = new GameView();
-        moveManager = new MoveManager(groupManager, iView);
+        this.moveManager = new MoveManager(this.groupManager, this.iView);
         turnManager = new TurnManager(numPlayer, groupManager, moveManager, iView);
 
         BoardManager.createBoard(boardEdgeNum);
@@ -66,7 +65,7 @@ public class PlayManager {
         }
     }
 
-    //그룹 매니저 생성 -> (구)UnitManager
+    //그룹 매니저 생성
     public final void createGroupManager(List<Player> playerList) {
         for (Player player : playerList) {
             List<Unit> units = player.getUnits();
@@ -85,10 +84,14 @@ public class PlayManager {
         return false;
     }
 
-    public void playerThrowYut(boolean isTest, int setYut) {
-        this.setMode= isTest;
+
+    public void playerThrowYut() {
         Player current = this.playerList.get(currentPlayer);
-        this.throwResult.addAll(turnManager.throwResult(current, isTest, setYut));
+        this.throwResult.addAll(turnManager.throwResult(current));
+    }
+
+    public void playerThrowYut(int setYut) {
+        this.throwResult.addAll(turnManager.throwResult(setYut));
     }
 
     public List<Integer> getYutResult() {
@@ -98,10 +101,11 @@ public class PlayManager {
     public void setUnitMove(int selectGroup, int selectedYut) {
         Player current = this.playerList.get(currentPlayer);
         List<GroupUnit> playerGroups = groupManager.getGroupsByPlayer(current);
+        boolean isTest = this.isTest;
 
         throwResult.remove(throwResult.indexOf(selectedYut));
+        this.resultEvent = turnManager.move(current, playerGroups, selectedYut, selectGroup, throwResult, isTest);
 
-        this.resultEvent = turnManager.move(current, playerGroups, selectedYut, selectGroup, throwResult);
         setCurrentPlayer();
     }
 
@@ -146,21 +150,5 @@ public class PlayManager {
             }
         }
         return unitsPerGroups;
-    }
-
-    public List<Player> getPlayerList() {
-        return playerList;
-    }
-
-    public int getCurrentPlayerIndex() {
-        return currentPlayer;
-    }
-
-    public GroupManager getGroupManager() {
-        return groupManager;
-    }
-
-    public IMoveManager getMoveManager() {
-        return moveManager;
     }
 }
