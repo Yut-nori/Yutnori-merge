@@ -45,7 +45,7 @@ public class GameState {
         this.isTest = isTest;
         this.yutResults.clear();
         this.lastResult = 1;
-        this.currentPlayer = 1;
+        this.currentPlayer = 0;
         this.unitPosition = new int[playerNum][UnitNum];
         for(int i = 0; i < playerNum; i++)
             Arrays.fill(this.unitPosition[i], -1);
