@@ -25,27 +25,29 @@ public class GroupMovement {
             //일반 바깥쪽
             if (!groupPosition.isVertex() && (groupPosition.getIndex() == 0 || groupPosition.getIndex() <= board.getLastOuterPosNum())) {
                 moveNormal(group, distance);
-
             // 현 위치 Center
             } else if (groupPosition.isCenter() || group.isCenterToStart()) {
                 group.setCenterToStart(true);
                 moveCenterToStart(group, distance);
+            // Vertex의 경우
+            } else if (groupPosition.isVertex()) {
+                // 그룹이 미리 타고오던 path가 없는 경우
+                if(!group.hasPath()) {
+                    List<Position> myPath = board.getInnerPath(groupPosition.getIndex());
+                    group.setPath(groupPosition.getIndex());
 
-            // 처음으로 Path를 타는 경우
-            } else if (groupPosition.isVertex() && !group.hasPath()) {
-                List<Position> myPath = board.getInnerPath(groupPosition.getIndex());
+                    moveInnerPath(group, myPath, distance);
+                } else {
+                    //이미 내부로 움직이던 경우
+                    group.releasePath();
+                    moveNormal(group, distance);
 
-
-                group.setPath(groupPosition.getIndex());
-
-                moveInnerPath(group, myPath, distance);
+                }
             } else {
                 // Path 중
                 List<Position> myPath = board.getInnerPath(group.getCurrentPathID());
                 moveInnerPath(group, myPath, distance);
-
             }
-
         } else {
             // 뒤로 한 칸 (빽도)
             if (group.isHistoryEmpty()) {
@@ -98,11 +100,8 @@ public class GroupMovement {
 
 
     private void moveNormal(GroupUnit group, int distance) {
-        moveAndRecordHistory(group, group.getCurrentPosition(), distance);
-    }
-
-    private void moveAndRecordHistory(GroupUnit group, Position start, int distance) {
-        Position current = start;
+        group.releasePath();
+        Position current = group.getCurrentPosition();
         for (int i = 0; i < distance; i++) {
             current = current.getNext();
             group.pushHistory(current);
@@ -129,7 +128,7 @@ public class GroupMovement {
             if(p.getIndex() == 0) group.markPassedZero();
         }
         group.setPosition(p);
-        if(remainDistance > 0) moveAndRecordHistory(group, group.getCurrentPosition(), distance);
+        if(remainDistance > 0) moveNormal(group, distance);
     }
 
     private void moveInnerPath(GroupUnit group, List<Position> myPath, int distance) {
