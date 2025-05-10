@@ -39,12 +39,10 @@ class ThrowControl extends JPanel {
                 if(yutResult == 0) yutResult = -1; // 빽도는 -1로 설정
 
                 // 버튼 클릭이 가능한 phase일 때만 버튼 동작
-                if(gm.getGameState().getCurrentPhase().contains(Phase.BUTTON_CLICK)) {
-                    System.out.println("지정 윷 던지기 버튼 + " + yutResult);
+                System.out.println("지정 윷 던지기 버튼 + " + yutResult);
 
-                    // 윷 던지기 메서드 호출(인자: 지정한 윷 결과 / -1: 빽도, 1: 도, 2: 개, 3: 걸, 4: 윷, 5: 모)
-                    gm.throwYut(yutResult);
-                }
+                // 윷 던지기 메서드 호출(인자: 지정한 윷 결과 / -1: 빽도, 1: 도, 2: 개, 3: 걸, 4: 윷, 5: 모)
+                gm.throwYut(yutResult);
             });
 
             // [2.3] 패널에 추가

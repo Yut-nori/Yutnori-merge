@@ -18,7 +18,7 @@ class YutResult extends JPanel {
         // [2] 윷 결과 라벨 생성
         JLabel resultLabel = new JLabel();
         switch (result) {
-            case -1 -> resultLabel.setText("빽 도!");
+            case -1 -> resultLabel.setText("빽도");
             case 1 -> resultLabel.setText("도");
             case 2 -> resultLabel.setText("개");
             case 3 -> resultLabel.setText("걸");
