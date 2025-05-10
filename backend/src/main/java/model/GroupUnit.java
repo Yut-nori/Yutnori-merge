@@ -15,6 +15,7 @@ public class GroupUnit {
     private boolean isInPath;
     private int pathID;
 
+
     public GroupUnit(Player player, List<Unit> unitGroup) {
         this.player = player;
         this.unitGroup = unitGroup;
@@ -37,6 +38,10 @@ public class GroupUnit {
 
     public void setUnitGroup(List<Unit> unitGroup) {
         this.unitGroup = unitGroup;
+    }
+
+    public Status getGroupStatus(){
+        return unitGroup.get(0).getStatus();
     }
 
     public Position getCurrentPosition() {

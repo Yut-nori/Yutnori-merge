@@ -1,20 +1,21 @@
-package swing.gameBoard;
+package swing.gameBoard.centerPanel;
 
 import swing.GameManager;
-import swing.gameBoard.RightPanel.UnitIcon;
+import swing.gameBoard.rightPanel.UnitIcon;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static swing.gameBoard.UnitPosition.*;
+import static swing.gameBoard.centerPanel.UnitPosition.*;
 import static swing.util.File.getFileName;
 import static swing.util.File.imageLoading;
 
-class MainBoard extends JPanel {
+public class MainBoard extends JPanel {
     private final String screenName = "GameBoard";
     private Map<String, BufferedImage> images = new HashMap<>();
     private final int shape;
@@ -44,7 +45,7 @@ class MainBoard extends JPanel {
                 default -> throw new IllegalStateException("Unexpected value: " + i);
             };
             for(int j = 0; j < unitPosition[i].length; j++) {
-                if(unitPosition[i][j] == -1) continue;
+                if(unitPosition[i][j] == -1 || unitGrouped[i][j] == 0) continue;
                 switch (shape) {
                     case 4 -> addUnit(i, j, rectangleUnitPositions[unitPosition[i][j]][0], rectangleUnitPositions[unitPosition[i][j]][1], unitGrouped[i][j], color);
                     case 5 -> addUnit(i, j, pentagonUnitPositions[unitPosition[i][j]][0], pentagonUnitPositions[unitPosition[i][j]][1], unitGrouped[i][j], color);
