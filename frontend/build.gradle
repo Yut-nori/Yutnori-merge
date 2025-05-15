@@ -1,0 +1,33 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'org.openjfx.javafxplugin' version '0.1.0'
+}
+
+repositories {
+    mavenCentral()
+}
+
+group = 'com.example'
+version = '1.0'
+
+javafx {
+    version = "21"
+    modules = [ 'javafx.controls', 'javafx.fxml' ]
+}
+
+dependencies {
+    // 별도 수동 지정 불필요, openjfx plugin이 알아서 처리
+}
+
+application {
+    mainClass = 'MainFX'
+}
+
+run {
+    // jvmArgs 불필요, plugin이 자동으로 설정
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}

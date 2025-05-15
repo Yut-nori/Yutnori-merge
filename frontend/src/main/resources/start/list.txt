@@ -1,0 +1,8 @@
+background.png
+exitButton.png
+gameBoard.png
+gameName.png
+mascort.png
+mascortAdd.png
+startButton.png
+yut.png
