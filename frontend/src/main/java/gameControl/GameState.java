@@ -1,6 +1,9 @@
 package gameControl;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.EnumSet;
+import java.util.List;
 
 public class GameState {
     private int totalPlayerNumber = 4;

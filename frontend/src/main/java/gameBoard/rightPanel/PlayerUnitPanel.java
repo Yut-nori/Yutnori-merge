@@ -4,7 +4,8 @@ import gameControl.GameManager;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
-import javafx.scene.layout.*;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import util.UIConstants;
@@ -50,7 +51,6 @@ public class PlayerUnitPanel extends VBox {
 
         // [5] Ready 상태(말판에 나가지 않은 -1 위치)의 말들만 추가
         int[][] unitPositions = gm.getGameState().getUnitPosition();
-        int[][] unitNumPerPositions = gm.getGameState().getUnitNumberPerPosition();
         for (int i = 0; i < unitPositions[0].length; i++) {
             int position = unitPositions[playerIndex][i];
             if (position == -1) {

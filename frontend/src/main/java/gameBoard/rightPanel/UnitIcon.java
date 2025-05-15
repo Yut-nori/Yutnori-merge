@@ -38,7 +38,7 @@ public class UnitIcon extends Group {
         // [3] 클릭 리스너 등록
         this.setOnMouseClicked((MouseEvent e) -> {
             System.out.println("말 클릭됨!");
-//            gm.clickUnit(playerNum, unitNum);
+            gm.clickUnit(playerNum, unitNum);
         });
 
         // [4] 마우스 커서 모양 (기본 핸드 커서)

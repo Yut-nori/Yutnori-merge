@@ -1,8 +1,8 @@
-import javafx.application.Application;
-import javafx.stage.Stage;
 import gameControl.GameManager;
 import gameControl.GameState;
 import gameControl.ScreenManager;
+import javafx.application.Application;
+import javafx.stage.Stage;
 
 
 public class MainFX extends Application {

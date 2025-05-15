@@ -39,7 +39,7 @@ public class GlobalButtonListener implements EventHandler<ActionEvent> {
             case "randomThrow":
                 System.out.println("랜덤 윷 던지기 버튼 클릭됨");
                 if (gameState != null && gameState.getCurrentPhase().contains(Phase.BUTTON_CLICK)) {
-//                    gameManager.throwYut(0);
+                    gameManager.throwYut(0);
                 }
                 break;
 

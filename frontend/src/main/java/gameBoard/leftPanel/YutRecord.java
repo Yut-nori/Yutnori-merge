@@ -52,7 +52,7 @@ public class YutRecord extends Pane {
 
         // [2] 클릭 이벤트 등록
         this.setOnMouseClicked((MouseEvent e) -> {
-//            gm.clickYut(yutResult);
+            gm.clickYut(yutResult);
             // 화살표 기능 추가 가능 위치
         });
 

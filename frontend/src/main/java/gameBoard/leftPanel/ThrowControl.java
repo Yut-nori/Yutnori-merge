@@ -1,12 +1,11 @@
 package gameBoard.leftPanel;
 
-import gameControl.GlobalButtonListener;
-import util.ComboBoxUtil;
-import gameBoard.leftPanel.YutRecord;
 import gameControl.GameManager;
+import gameControl.GlobalButtonListener;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.Pane;
+import util.ComboBoxUtil;
 
 public class ThrowControl extends Pane {
 
@@ -36,7 +35,7 @@ public class ThrowControl extends Pane {
                 System.out.println("지정 윷 던지기 버튼 + " + yutResult);
 
                 // 윷 던지기 로직 실행
-//                gm.throwYut(yutResult);
+                gm.throwYut(yutResult);
             });
 
             // [2.3] 패널에 추가

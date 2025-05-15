@@ -6,9 +6,11 @@ import gameBoard.leftPanel.LeftPanel;
 import gameBoard.rightPanel.RightPanel;
 import gameBoard.topPanel.TopPanel;
 import gameControl.ScreenManager;
+import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 
 import java.util.List;
@@ -23,6 +25,8 @@ public class GameBoard extends Pane {
     private final String screenName = "GameBoard";
     private final Map<String, Image> images;
     private final Canvas canvas;
+    private BorderPane rootPane = new BorderPane();
+
 
     // ** Constructor **
     public GameBoard(ScreenManager sm) {
@@ -39,16 +43,17 @@ public class GameBoard extends Pane {
         getChildren().add(canvas);
 
         // [3] GameManager에 현재 Pane 참조 설정
-        sm.getGameManager().setPanelContainer(this); // JavaFX에서도 GameManager가 panelContainer를 쓸 수 있어야 함
+        sm.getGameManager().setRootPane(rootPane);
 
         // [4] 패널 생성
-        MainBoard mainBoard = new MainBoard(sm.getGameManager());
-        LeftPanel leftPanel = new LeftPanel(sm.getGameManager());
-        RightPanel rightPanel = new RightPanel(sm.getGameManager());
-        TopPanel topPanel = new TopPanel(sm.getGameManager());
+        rootPane.setLeft(new LeftPanel(sm.getGameManager()));
+        rootPane.setRight(new RightPanel(sm.getGameManager()));
+        rootPane.setTop(new TopPanel(sm.getGameManager()));
+        rootPane.setCenter(new MainBoard(sm.getGameManager()));
+
 
         // [5] 패널 추가
-        getChildren().addAll(mainBoard, leftPanel, rightPanel, topPanel);
+        getChildren().add(rootPane);
     }
 
     // 배경 이미지 그리기

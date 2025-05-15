@@ -1,14 +1,12 @@
 package gameBoard.centerPanel;
 
 import gameBoard.rightPanel.UnitIcon;
+import gameControl.GameManager;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import util.File.*;
-
-import gameControl.GameManager;
 
 import java.util.HashMap;
 import java.util.List;

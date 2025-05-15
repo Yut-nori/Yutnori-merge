@@ -4,8 +4,8 @@ package gameBoard.rightPanel;
 import gameControl.GameManager;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
-import javafx.scene.text.Font;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import util.UIConstants;
 
 public class PlayerUnitTrackerPanel extends Pane {

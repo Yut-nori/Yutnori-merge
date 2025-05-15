@@ -17,7 +17,7 @@ javafx {
 }
 
 dependencies {
-    // 별도 수동 지정 불필요, openjfx plugin이 알아서 처리
+    implementation project(':backend')
 }
 
 application {

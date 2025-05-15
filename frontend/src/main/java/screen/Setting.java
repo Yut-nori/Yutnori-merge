@@ -5,18 +5,20 @@ import gameControl.GlobalButtonListener;
 import gameControl.ScreenManager;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import util.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import util.ComboBoxUtil;
+import util.File;
+import util.ImageRenderer;
 
 import java.util.List;
 import java.util.Map;
 
 import static util.ButtonUtil.createButtonIfExists;
-import static util.File.*;
+import static util.File.getFileName;
 
 public class Setting extends Pane {
 
@@ -64,7 +66,7 @@ public class Setting extends Pane {
 
             GameManager gm = sm.getGameManager();
             gm.getGameState().initiateState(selectedPlayerNum, selectedUnitNum, selectedShapeNum, selectedTest);
-//            gm.apiSetOption(selectedPlayerNum, selectedUnitNum, selectedShapeNum, selectedTest);
+            gm.apiSetOption(selectedPlayerNum, selectedUnitNum, selectedShapeNum, selectedTest);
 
             sm.gameBoard(); // 예: 다음 화면으로 전환
         }, images);

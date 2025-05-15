@@ -1,11 +1,11 @@
 package gameBoard.topPanel;
 
+import gameControl.GameManager;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import gameControl.GameManager;
 import util.UIConstants;
 
 public class TopPanel extends Pane {

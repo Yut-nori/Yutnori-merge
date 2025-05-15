@@ -1,14 +1,14 @@
 package screen;
 
+import gameControl.GlobalButtonListener;
+import gameControl.ScreenManager;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import gameControl.ScreenManager;
 import util.ButtonUtil;
-import gameControl.GlobalButtonListener;
 import util.ImageRenderer;
 
 import java.util.List;
