@@ -1,7 +1,0 @@
-background.png
-exitButton.png
-man.png
-startButton.png
-title.png
-winner.png
-woman.png
