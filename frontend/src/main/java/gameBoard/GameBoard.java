@@ -25,7 +25,7 @@ public class GameBoard extends Pane {
     private final String screenName = "GameBoard";
     private final Map<String, Image> images;
     private final Canvas canvas;
-    private BorderPane rootPane = new BorderPane();
+    private Pane rootPane = new Pane();
 
 
     // ** Constructor **
@@ -46,11 +46,12 @@ public class GameBoard extends Pane {
         sm.getGameManager().setRootPane(rootPane);
 
         // [4] 패널 생성
-        rootPane.setLeft(new LeftPanel(sm.getGameManager()));
-        rootPane.setRight(new RightPanel(sm.getGameManager()));
-        rootPane.setTop(new TopPanel(sm.getGameManager()));
-        rootPane.setCenter(new MainBoard(sm.getGameManager()));
+        LeftPanel leftPanel = new LeftPanel(sm.getGameManager());
+        RightPanel rightPanel = new RightPanel(sm.getGameManager());
+        TopPanel topPanel = new TopPanel(sm.getGameManager());
+        MainBoard mainBoard = new MainBoard(sm.getGameManager());
 
+        rootPane.getChildren().addAll(leftPanel, rightPanel, topPanel, mainBoard);
 
         // [5] 패널 추가
         getChildren().add(rootPane);

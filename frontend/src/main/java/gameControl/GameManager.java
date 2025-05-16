@@ -7,6 +7,7 @@ import gameBoard.topPanel.TopPanel;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 
+import java.awt.*;
 import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.List;
@@ -14,7 +15,7 @@ import java.util.List;
 public class GameManager {
 
     //    // ** 멤버 변수 **
-    private BorderPane rootPane; // JavaFX에서는 Pane 사용
+    private Pane rootPane; // JavaFX에서는 Pane 사용
     private final GameState gameState;
     private ScreenManager screenManager;
 
@@ -153,19 +154,27 @@ public class GameManager {
     }
 
     public void leftRepaint() {
-        rootPane.setLeft(new LeftPanel(this));
+        rootPane.getChildren().removeIf(node -> node instanceof LeftPanel);
+        LeftPanel leftPanel = new LeftPanel(this);
+        rootPane.getChildren().add(leftPanel);
     }
 
     public void rightRepaint() {
-        rootPane.setRight(new RightPanel(this));
+        rootPane.getChildren().removeIf(node -> node instanceof RightPanel);
+        RightPanel rightPanel = new RightPanel(this);
+        rootPane.getChildren().add(rightPanel);
     }
 
     private void topRepaint() {
-        rootPane.setTop(new TopPanel(this));
+        rootPane.getChildren().removeIf(node -> node instanceof TopPanel);
+        TopPanel topPanel = new TopPanel(this);
+        rootPane.getChildren().add(topPanel);
     }
 
     private void centerRepaint() {
-        rootPane.setCenter(new MainBoard(this));
+        rootPane.getChildren().removeIf(node -> node instanceof MainBoard);
+        MainBoard mainBoard = new MainBoard(this);
+        rootPane.getChildren().add(mainBoard);
     }
 
     public void moveUnitRepaint() {
@@ -178,8 +187,8 @@ public class GameManager {
     // ** Getters and Setters **
 
 
-    public void setRootPane(BorderPane rootPane) {
-        this.rootPane = rootPane;
+    public void setRootPane(Pane pane) {
+        this.rootPane = pane;
     }
 
     public GameState getGameState() {
