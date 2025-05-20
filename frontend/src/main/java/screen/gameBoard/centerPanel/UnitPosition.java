@@ -1,4 +1,4 @@
-package gameBoard.centerPanel;
+package screen.gameBoard.centerPanel;
 
 public class UnitPosition {
     public static final int[][] rectangleUnitPositions;

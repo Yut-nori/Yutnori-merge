@@ -7,7 +7,6 @@ import java.util.List;
 public class GameAPI {
 
     private PlayManager playManager;
-    private List<Integer> throwResult;
 
     public void setPlayManager(PlayManager playManager) {
         this.playManager = playManager;

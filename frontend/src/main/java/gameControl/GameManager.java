@@ -1,13 +1,11 @@
 package gameControl;
 
-import gameBoard.centerPanel.MainBoard;
-import gameBoard.leftPanel.LeftPanel;
-import gameBoard.rightPanel.RightPanel;
-import gameBoard.topPanel.TopPanel;
-import javafx.scene.layout.BorderPane;
+import screen.gameBoard.centerPanel.MainBoard;
+import screen.gameBoard.leftPanel.LeftPanel;
+import screen.gameBoard.rightPanel.RightPanel;
+import screen.gameBoard.topPanel.TopPanel;
 import javafx.scene.layout.Pane;
 
-import java.awt.*;
 import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.List;

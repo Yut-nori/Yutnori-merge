@@ -1,4 +1,4 @@
-package gameBoard.leftPanel;
+package screen.gameBoard.leftPanel;
 
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;

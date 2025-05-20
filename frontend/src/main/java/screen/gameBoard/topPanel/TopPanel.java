@@ -1,4 +1,4 @@
-package gameBoard.topPanel;
+package screen.gameBoard.topPanel;
 
 import gameControl.GameManager;
 import javafx.geometry.Pos;

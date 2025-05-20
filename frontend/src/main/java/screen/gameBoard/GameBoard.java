@@ -1,16 +1,14 @@
-package gameBoard;
+package screen.gameBoard;
 
 
-import gameBoard.centerPanel.MainBoard;
-import gameBoard.leftPanel.LeftPanel;
-import gameBoard.rightPanel.RightPanel;
-import gameBoard.topPanel.TopPanel;
+import screen.gameBoard.centerPanel.MainBoard;
+import screen.gameBoard.leftPanel.LeftPanel;
+import screen.gameBoard.rightPanel.RightPanel;
+import screen.gameBoard.topPanel.TopPanel;
 import gameControl.ScreenManager;
-import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 
 import java.util.List;

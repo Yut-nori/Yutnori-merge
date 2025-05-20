@@ -1,6 +1,6 @@
-package gameBoard.centerPanel;
+package screen.gameBoard.centerPanel;
 
-import gameBoard.rightPanel.UnitIcon;
+import screen.gameBoard.rightPanel.UnitIcon;
 import gameControl.GameManager;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -12,7 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static gameBoard.centerPanel.UnitPosition.*;
+import static screen.gameBoard.centerPanel.UnitPosition.*;
 import static util.File.getFileName;
 import static util.File.imageLoading;
 

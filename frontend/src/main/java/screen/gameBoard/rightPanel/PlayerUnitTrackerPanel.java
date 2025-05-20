@@ -1,4 +1,4 @@
-package gameBoard.rightPanel;
+package screen.gameBoard.rightPanel;
 
 
 import gameControl.GameManager;

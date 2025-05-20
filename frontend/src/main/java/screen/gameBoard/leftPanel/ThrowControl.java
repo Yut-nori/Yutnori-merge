@@ -1,4 +1,4 @@
-package gameBoard.leftPanel;
+package screen.gameBoard.leftPanel;
 
 import gameControl.GameManager;
 import gameControl.GlobalButtonListener;
