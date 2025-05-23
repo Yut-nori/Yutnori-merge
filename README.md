@@ -2,7 +2,7 @@
 
 # How to update frontend and backend by remote repository
 ## How to change FE repo
-`git rm -r frontend
+`git rm -r frontend`
 `git commit -m "remove old frontend module"`
 `git subtree add --prefix=frontend <FE repo> main --squash`
 ### Swing version
