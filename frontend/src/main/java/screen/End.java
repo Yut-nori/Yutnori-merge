@@ -5,9 +5,12 @@ import gameControl.ScreenManager;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import util.ButtonUtil;
 import util.ImageRenderer;
 
@@ -37,21 +40,21 @@ public class End extends Pane {
             getChildren().add(background);
         }
 
-//        // [3] 승자 라벨 표시
-//        int winner = sm.getGameManager().getGameState().getCurrentPlayer() + 1;
-//        if (sm.getGameManager().getGameState().getYutResults().isEmpty()) {
-//            if (winner == 1)
-//                winner = sm.getGameManager().getGameState().getTotalPlayerNumber();
-//            else
-//                winner -= 1;
-//        }
+        // [3] 승자 라벨 표시
+        int winner = sm.getGameManager().getGameState().getCurrentPlayer() + 1;
+        if (sm.getGameManager().getGameState().getYutResults().isEmpty()) {
+            if (winner == 1)
+                winner = sm.getGameManager().getGameState().getTotalPlayerNumber();
+            else
+                winner -= 1;
+        }
 
-//        Label winnerLabel = new Label("Winner: " + winner);
-//        winnerLabel.setFont(new Font("Arial", 50));
-//        winnerLabel.setTextFill(Color.WHITE);
-//        winnerLabel.setLayoutX(520);
-//        winnerLabel.setLayoutY(180);
-//        getChildren().add(winnerLabel);
+        Label winnerLabel = new Label("Winner: " + winner);
+        winnerLabel.setFont(new Font("Arial", 50));
+        winnerLabel.setTextFill(Color.WHITE);
+        winnerLabel.setLayoutX(520);
+        winnerLabel.setLayoutY(180);
+        getChildren().add(winnerLabel);
 
         // [4] 버튼 생성
         Button restartButton = ButtonUtil.createButtonIfExists(

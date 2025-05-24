@@ -12,12 +12,12 @@ import java.util.List;
 
 public class GameManager {
 
-    //    // ** 멤버 변수 **
+    /** 멤버 변수 **/
     private Pane rootPane; // JavaFX에서는 Pane 사용
     private final GameState gameState;
     private ScreenManager screenManager;
 
-    // ** API 객체 변수 **
+    /** API 객체 변수 **/
     private final api.OptionAPI optionAPI;
     private final api.GameAPI gameAPI;
 
