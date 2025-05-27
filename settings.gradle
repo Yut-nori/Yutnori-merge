@@ -1,2 +1,8 @@
 rootProject.name = 'Yutnori-merge'
-include 'frontend', 'backend'
+if (file('frontend-swing').exists()) {
+    include 'frontend-swing'
+}
+if (file('frontend-fx').exists()) {
+    include 'frontend-fx'
+}
+include 'backend'
