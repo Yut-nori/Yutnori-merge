@@ -1,14 +1,20 @@
 ﻿# Yutnori
 
 # How to update frontend and backend by remote repository
-## How to change FE repo
-`git rm -r frontend`
-`git commit -m "remove old frontend module"`
-`git subtree add --prefix=frontend <FE repo> main --squash`
-### Swing version
-https://github.com/Yut-nori/Yutnori_FE.git
-### FX version
-https://github.com/Yut-nori/Yutnori_FE_FX.git
+## How to change FE repo (Swing / FX separated)
+
+### Remove old FE version (if any)
+```bash
+git rm -r frontend-swing  # or frontend-fx depending on what you replace
+git commit -m "remove old frontend module"
+
+### Add new FE version
+```bash
+git subtree add --prefix=frontend-swing https://github.com/Yut-nori/Yutnori_FE.git main --squash
+git subtree add --prefix=frontend-fx https://github.com/Yut-nori/Yutnori_FE_FX.git main --squash
+
+
+
 
 
 ## frontend
