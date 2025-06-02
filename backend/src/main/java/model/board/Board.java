@@ -53,7 +53,6 @@ public class Board {
                 start = end = pos;
                 /* 나머지 점들은 일반적인 방법으로 이중연결리스트 연결 */
             } else {
-                pos.setBack(end);
                 end.setNext(pos);
                 end = pos;
             }
@@ -65,19 +64,6 @@ public class Board {
 
         // 마지막 바깥쪽 position을 시작점과 연결해 원형 연결
         end.setNext(start);
-        start.setBack(end);
-
-        /* 디버깅 출력: 외부 연결 상태 확인
-        System.out.println("===== 외부 경로 연결 디버깅 =====");
-        for (int i = 0; i <= lastOuterPosNum; i++) {
-            Position current = positionArr[i];
-            System.out.printf("Pos %2d -> next: %2d, back: %2d%n",
-                    current.getIndex(),
-                    current.getNext() != null ? current.getNext().getIndex() : -1,
-                    current.getBack() != null ? current.getBack().getIndex() : -1
-            );
-        }
-        System.out.println("================================"); */
 
         // Center 생성 및 등록
         centerPos = new Position(positionNum - 1);
@@ -153,28 +139,15 @@ public class Board {
         int shortcutPosIdx = centerPos.getIndex() - 1;
         Position shortcutPos = positionArr[shortcutPosIdx];
         centerPos.setAltNext(shortcutPos);
-        shortcutPos.setAltBack(centerPos);
 
         Position tmp = shortcutPos;
         for (int i = shortcutPosIdx; i > shortcutPosIdx - innerPositionNum + 1; i--) {
             Position altNextPos = positionArr[i - 1];
             tmp.setAltNext(altNextPos);
-            altNextPos.setAltBack(tmp);
             tmp = altNextPos;
         }
 
         tmp.setAltNext(positionArr[0]);
-        positionArr[0].setAltBack(tmp);
-
-        /* center에서 altNext의 경로 디버깅
-        System.out.println("===== center → altNext 경로 디버깅 =====");
-        Position p = centerPos;
-        while (p != null) {
-            System.out.printf("Pos %2d\n", p.getIndex());
-            if (p.getIndex() == 0) break;
-            p = p.getAltNext();
-        }
-        System.out.println("======================================="); */
     }
 
 
