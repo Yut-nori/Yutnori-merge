@@ -2,13 +2,15 @@ package controller;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import controller.interfaces.IGroupManager;
 import model.GroupUnit;
 import model.Player;
 import model.Status;
 import model.Unit;
 import model.board.Position;
 
-public class GroupManager {
+public class GroupManager implements IGroupManager {
     private List<GroupUnit> groupList;
 
     public GroupManager() {

@@ -1,5 +1,6 @@
 package controller;
 
+import controller.interfaces.IGroupManager;
 import model.GroupUnit;
 import model.Player;
 import model.Unit;
@@ -9,9 +10,9 @@ import model.Status;
 import java.util.List;
 
 public class GroupPositionChecker {
-    private GroupManager groupManager; //의존성 주입(결합도 낮추기)
+    private IGroupManager groupManager; //의존성 주입(결합도 낮추기)
 
-    public GroupPositionChecker(GroupManager groupManager) {
+    public GroupPositionChecker(IGroupManager groupManager) {
         this.groupManager = groupManager;
     }
     public boolean isFirstMoveIsBack(List<GroupUnit> playerGroups, List<Integer> throwResult){

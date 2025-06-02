@@ -2,15 +2,15 @@ package controller;
 
 import java.util.List;
 
+import controller.interfaces.IGroupManager;
 import controller.interfaces.IMoveManager;
-import model.Status;
 import view.interfaces.IView;
 import model.GroupUnit;
 import model.Player;
 import model.board.Position;
 
 public class MoveManager implements IMoveManager {
-    private GroupManager groupManager;
+    private IGroupManager groupManager;
     private GroupMovement groupMovement;
     private GroupPositionChecker groupPositionChecker;
     private IView view;
@@ -22,7 +22,7 @@ public class MoveManager implements IMoveManager {
     */
 
 
-    public MoveManager(GroupManager groupManager, IView view) {
+    public MoveManager(IGroupManager groupManager, IView view) {
         this.groupManager = groupManager;
         this.groupMovement = new GroupMovement(groupManager);
         this.groupPositionChecker = new GroupPositionChecker(groupManager);

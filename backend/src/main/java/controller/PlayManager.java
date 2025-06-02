@@ -2,9 +2,11 @@ package controller;
 
 import java.util.ArrayList;
 import java.util.List;
-
+/*
 import controller.interfaces.IMoveManager;
 import controller.interfaces.ITurnManager;
+import controller.interfaces.IGroupManager;*/
+
 import model.GroupUnit;
 import model.Player;
 import model.Status;
@@ -25,8 +27,8 @@ public class PlayManager {
     private String resultEvent;
     /* TurnManger와 MoveManager 인터페이스화*/
     protected GroupManager groupManager;
-    protected ITurnManager turnManager;
-    protected IMoveManager moveManager;
+    protected TurnManager turnManager;
+    protected MoveManager moveManager;
     protected  IView iView;
 
     public PlayManager(
@@ -44,8 +46,8 @@ public class PlayManager {
 
         groupManager = new GroupManager();
         iView = new GameView();
-        this.moveManager = new MoveManager(this.groupManager, this.iView);
-        turnManager = new TurnManager(numPlayer, groupManager, moveManager, iView);
+        this.moveManager = new MoveManager( this.groupManager, this.iView);
+        turnManager = new TurnManager(numPlayer ,iView);
 
         BoardManager.createBoard(boardEdgeNum);
         this.gameBoard = BoardManager.getBoard();
@@ -104,7 +106,10 @@ public class PlayManager {
         boolean isTest = this.isTest;
 
         throwResult.remove(throwResult.indexOf(selectedYut));
-        this.resultEvent = turnManager.move(current, playerGroups, selectedYut, selectGroup, throwResult, isTest);
+        moveManager.handleUserMove(playerGroups, selectedYut, selectGroup);
+        this.resultEvent = moveManager.handlePostMoveActions(current, playerGroups, throwResult,selectGroup,isTest);
+        turnManager.checkTurnResult(current, throwResult);
+        //turnManager.move(current, playerGroups, selectedYut, selectGroup, throwResult, isTest);
 
         setCurrentPlayer();
     }

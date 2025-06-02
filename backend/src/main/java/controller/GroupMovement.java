@@ -1,5 +1,7 @@
 package controller;
 import java.util.List;
+
+import controller.interfaces.IGroupManager;
 import model.GroupUnit;
 import model.Unit;
 import model.board.Board;
@@ -7,9 +9,9 @@ import model.board.Position;
 import model.Status;
 
 public class GroupMovement {
-    private GroupManager groupManager;
+    private IGroupManager groupManager;
 
-    public GroupMovement(GroupManager groupManager) {
+    public GroupMovement(IGroupManager groupManager) {
         this.groupManager = groupManager;
     }
 
