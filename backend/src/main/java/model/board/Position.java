@@ -2,16 +2,14 @@ package model.board;
 
 public class Position {
     private Position next;
-    private Position back;
     private boolean isVertex;
     private Position altNext;
-    private Position altBack;
     private int index;
     private boolean isCenter;   // 나중에 Center 인지 확인해줄 것임.
 
     public Position(int index) {
         this.index = index;
-        next = back = altNext = altBack = null;
+        next = altNext = null;
         isVertex = false;
         isCenter = false;
     }
@@ -24,21 +22,13 @@ public class Position {
         this.isVertex = isVertex;
     }
 
-    /* next, back Getter/Setter */
+    /* next Getter/Setter */
     public Position getNext() {
         return next;
     }
 
     public void setNext(Position nextPos) {
         this.next = nextPos;
-    }
-
-    public Position getBack() {
-        return back;
-    }
-
-    public void setBack(Position backPos) {
-        this.back = backPos;
     }
 
     /* Alternative Next, Back Getter/Setter */
@@ -48,14 +38,6 @@ public class Position {
 
     public void setAltNext(Position altNextPos) {
         this.altNext = altNextPos;
-    }
-
-    public Position getAltBack() {
-        return altBack;
-    }
-
-    public void setAltBack(Position altBackPos) {
-        this.altBack = altBackPos;
     }
 
     /* 자기자신, next의 Index Getter */
@@ -80,10 +62,4 @@ public class Position {
     public boolean isCenter() {
         return isCenter;
     }
-
-    public void printPositionInfo() {
-        System.out.println("POSITION INDEX : " + this.getIndex() + ", IS VERTEX? : " + this.isVertex() + ", IS CENTER? : " + this.isCenter());
-        System.out.println("BACK POS : " + this.getBack().getIndex() + " ... " + this.getIndex() + " ... NEXT POS : " + this.getNext().getIndex());
-    }
 }
-
