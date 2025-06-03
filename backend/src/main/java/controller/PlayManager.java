@@ -25,7 +25,6 @@ public class PlayManager {
     private List<Integer> throwResult;
     private boolean isTest;
     private String resultEvent;
-    /* TurnManger와 MoveManager 인터페이스화*/
     protected GroupManager groupManager;
     protected TurnManager turnManager;
     protected MoveManager moveManager;
@@ -47,7 +46,7 @@ public class PlayManager {
         groupManager = new GroupManager();
         iView = new GameView();
         this.moveManager = new MoveManager( this.groupManager, this.iView);
-        turnManager = new TurnManager(numPlayer ,iView);
+        turnManager = new TurnManager(numPlayer ,this.iView);
 
         BoardManager.createBoard(boardEdgeNum);
         this.gameBoard = BoardManager.getBoard();
@@ -109,8 +108,6 @@ public class PlayManager {
         moveManager.handleUserMove(playerGroups, selectedYut, selectGroup);
         this.resultEvent = moveManager.handlePostMoveActions(current, playerGroups, throwResult,selectGroup,isTest);
         turnManager.checkTurnResult(current, throwResult);
-        //turnManager.move(current, playerGroups, selectedYut, selectGroup, throwResult, isTest);
-
         setCurrentPlayer();
     }
 

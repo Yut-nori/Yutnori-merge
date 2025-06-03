@@ -60,7 +60,7 @@ public class MoveManager implements IMoveManager {
         } else if (groupPositionChecker.isFriendlyInPosition(current, newPos)) {
             result = "Combine Units!";
         }
-        view.displayMoveResult(result);
+        //view.displayMoveResult(result);
         return result;
     }
 }

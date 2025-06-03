@@ -15,8 +15,6 @@ public class
 TurnManager implements ITurnManager {
     private int currentPlayer = 0 ;
     private int numPlayer = 2;
-    //private GroupManager groupManager;
-    //private IMoveManager moveManager;
     private IView view;
 
     public TurnManager(int numPlayer, IView view) {
@@ -28,7 +26,7 @@ TurnManager implements ITurnManager {
     public void checkTurnResult(Player current, List<Integer> throwResult){
         if (isAllUnitsEnded(current)) {
             current.setWinner(true);
-            view.displayVictory(current);
+            //view.displayVictory(current);
         }
         if(throwResult.isEmpty()) setNextPlayer();
         System.out.println("checkTurnResult, "+" value : "+throwResult);
